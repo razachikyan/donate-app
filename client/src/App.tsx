@@ -1,12 +1,13 @@
-import React from 'react';
-import './App.css';
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-     
-    </div>
+    <RouterProvider
+      router={router}
+      future={{
+        v7_startTransition: true,
+      }}
+    />
   );
-}
-
-export default App;
+};

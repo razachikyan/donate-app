@@ -1,0 +1,39 @@
+.button {
+  top: 22px;
+  left: 32px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.menu {
+  z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 940px;
+  background-color: black;
+  padding-top: 115px;
+}
+
+.account {
+  position: absolute;
+  top: 35px;
+  left: 760px;
+}
+
+.tab {
+  color: #ffffff !important;
+
+  &[aria-selected="true"] {
+    color: #e08760 !important;
+  }
+}
