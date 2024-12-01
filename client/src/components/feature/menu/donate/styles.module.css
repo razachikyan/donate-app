@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  padding: 32px 32px 100px;
+}
+
+.title {
+  font-family: Arial;
+  font-style: italic;
+  font-size: 64px;
+  letter-spacing: 0.07em;
+  color: #fff;
+}
+
+.colored {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 96px;
+  letter-spacing: 0.02em;
+  color: #e08760;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text {
+  display: block;
+  width: 300px;
+}
+
+.button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #e08760 !important;
+  color: #e08760 !important;
+  border-radius: 50px !important;
+  width: 307px !important;
+  height: 65px !important;
+}

@@ -1,0 +1,53 @@
+.box {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.container {
+  padding: 33px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 95px;
+}
+
+.image {
+  width: 50%;
+  aspect-ratio: 1 / 1.03;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  max-width: 750px;
+}
+
+.title {
+  margin-bottom: 50px;
+  font-family: Arial;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 64px;
+  color: #fff;
+}
+
+.selected {
+  color: #e08760;
+  font-style: normal;
+}
+
+.descr {
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 81px;
+}
+
+.button {
+  margin-top: 170px !important;
+  align-self: flex-end;
+}

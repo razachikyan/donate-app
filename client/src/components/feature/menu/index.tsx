@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Tabs, Tab, Box, colors } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 import { IMenuProps } from "./types";
+import { DonatePanel } from "./donate";
 
 import styles from "./styles.module.css";
+import { FeedBack } from "./feedback";
 
 const tabData = [
   {
     label: "Բարեգործություն",
-    content: "Բարեգործություն բովանդակություն",
+    content: <DonatePanel />,
     key: "charity",
   },
   {
@@ -20,7 +22,7 @@ const tabData = [
   { label: "Որոնում", content: "Որոնում բովանդակություն", key: "search" },
   {
     label: "Հետադարձ կապ",
-    content: "Հետադարձ կապ բովանդակություն",
+    content: <FeedBack />,
     key: "contact",
   },
 ];
@@ -88,12 +90,9 @@ const TabPanel = (props: {
       id={`tab-panel-${index}`}
       aria-labelledby={`tab-${index}`}
       {...other}
+      className={styles.tabPanel}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Box sx={{ color: "#fff" }}>{children}</Box>
-        </Box>
-      )}
+      {value === index && <>{children}</>}
     </div>
   );
 };

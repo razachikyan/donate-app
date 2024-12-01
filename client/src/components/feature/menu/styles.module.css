@@ -37,3 +37,8 @@
     color: #e08760 !important;
   }
 }
+
+.tabPanel {
+  padding-top: 200px;
+  height: 100%;
+}
