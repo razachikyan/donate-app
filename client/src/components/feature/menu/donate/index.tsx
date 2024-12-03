@@ -11,7 +11,7 @@ export const DonatePanel = () => {
         Կազմակերպություն
       </span>
       <Box className={styles.bottom}>
-        <span className={styles.text}>/////Կայքը նախատեսված է մարդկանց միավերելու համար</span>
+        <span className={styles.text}>{"/////Կայքը նախատեսված է մարդկանց միավերելու համար"}</span>
       <Button onClick={() => {}}>Մեր մասին</Button>
       </Box>
     </Box>

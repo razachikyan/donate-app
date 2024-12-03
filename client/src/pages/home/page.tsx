@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 export const HomePage = () => {
   return (
     <Container className={styles.container}>
-      <Menu onClick={() => {}} open={false} />
+      <Menu />
       <Box className={styles.main}>
         <span className={styles.name}>«ՆՎԻՐՈՒՄ ԵՄ»</span>
         <h1 className={styles.title}>Բարեգործական Կազմակերպություն</h1>

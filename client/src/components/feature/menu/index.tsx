@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Tabs, Tab, Box } from "@mui/material";
-import { IMenuProps } from "./types";
+import { Tabs, Tab } from "@mui/material";
 import { DonatePanel } from "./donate";
+import { FeedBack } from "./feedback";
 
 import styles from "./styles.module.css";
-import { FeedBack } from "./feedback";
+import { TabPanel } from "../tabPanel";
 
 const tabData = [
   {
@@ -27,7 +27,7 @@ const tabData = [
   },
 ];
 
-export const Menu = ({ onClick, open }: IMenuProps) => {
+export const Menu = () => {
   const [menu, setMenu] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialTabKey = searchParams.get("tab");
@@ -76,23 +76,4 @@ export const Menu = ({ onClick, open }: IMenuProps) => {
   );
 };
 
-const TabPanel = (props: {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}) => {
-  const { children, index, value, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tab-panel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-      className={styles.tabPanel}
-    >
-      {value === index && <>{children}</>}
-    </div>
-  );
-};
