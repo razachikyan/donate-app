@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import { Container } from "../../components/feature/container";
 import { useSearchParams } from "react-router-dom";
+import { TabPanel } from "../../components/feature/tabPanel";
+import { AuthForm } from "../../components/feature/authForm";
 
 import styles from "./styles.module.css";
-import { TabPanel } from "../../components/feature/tabPanel";
 
 const tabData = [
   {
@@ -165,6 +166,7 @@ export const Auth = () => {
             ))}
           </Box>
         </Box>
+        <AuthForm form={value === 0 ? "signin" : "signup"} />
       </Container>
     </Box>
   );

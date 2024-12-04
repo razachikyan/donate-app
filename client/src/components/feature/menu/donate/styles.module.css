@@ -35,13 +35,13 @@
   width: 300px;
 }
 
-.button {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border: 1px solid #e08760 !important;
-  color: #e08760 !important;
-  border-radius: 50px !important;
-  width: 307px !important;
-  height: 65px !important;
+.navigationBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e08760;
+  color: #e08760;
+  border-radius: 50px;
+  width: 307px;
+  height: 65px;
 }
