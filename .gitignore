@@ -3,3 +3,6 @@
 
 /client/.env
 /server/.env
+
+/server/dist
+/client/build
