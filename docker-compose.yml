@@ -15,30 +15,6 @@ services:
     networks:
       - donate-app-network
 
-  backend:
-    build: ./server
-    container_name: donate-app-backend
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: admin
-      DB_PASSWORD: admin
-      DB_NAME: my_database
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-    networks:
-      - donate-app-network
-
-  frontend:
-    build: ./client
-    container_name: donate-app-frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - donate-app-network
-
 volumes:
   db-data:
 
