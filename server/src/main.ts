@@ -42,7 +42,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.use("/", Routes);
 
