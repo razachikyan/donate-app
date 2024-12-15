@@ -14,11 +14,7 @@ const config: { [key: string]: Knex.Config } = {
       database: process.env.DB_NAME || "my_database",
     },
     migrations: {
-      directory: "./migrations",
-      extension: "ts",
-    },
-    seeds: {
-      directory: "./seeds",
+      directory: "./src/migrations",
       extension: "ts",
     },
   },

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { AuthServices } from "../services/auth";
+import authServices from "../services/auth";
 
-const authServices = new AuthServices();
+class AuthController {
+  constructor() {}
 
-export default {
   async signup(req: Request, res: Response) {
     try {
       const user = await authServices.signup(req.body);
@@ -12,7 +12,7 @@ export default {
       console.log("Error creating user:", error);
       res.status(500).json(error);
     }
-  },
+  }
 
   async login(req: Request, res: Response) {
     try {
@@ -23,7 +23,17 @@ export default {
       console.log("Error authenticating user:", error);
       res.status(500).json(error);
     }
-  },
+  }
+
+  async logout(_: Request, res: Response) {
+    try {
+      await authServices.logout();
+      res.status(200).send("User logged out successfully!");
+    } catch (error) {
+      console.log("Error authenticating user:", error);
+      res.status(500).json(error);
+    }
+  }
 
   async changePass(req: Request, res: Response) {
     try {
@@ -34,18 +44,18 @@ export default {
       console.log("Error authenticating user:", error);
       res.status(500).json(error);
     }
-  },
+  }
 
-  async loginWithOnetimeCode(req: Request, res: Response) {
+  async verifyOTP(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-      const user = await authServices.loginWithOnetimeCode(email, password);
+      const user = await authServices.verifyOTP(email, password);
       res.status(200).json(user);
     } catch (error) {
       console.log("Error authenticating user:", error);
       res.status(500).json(error);
     }
-  },
+  }
 
   async sendCode(req: Request, res: Response) {
     try {
@@ -55,5 +65,15 @@ export default {
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
-  },
-};
+  }
+
+  async refresh(req: Request, res: Response) {
+    try {
+      res.sendStatus(200);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+}
+
+export default new AuthController()
