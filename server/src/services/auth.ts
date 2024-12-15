@@ -1,10 +1,12 @@
 import bcrypt from "bcrypt";
-import { nanoid, customAlphabet } from "nanoid";
 import { Validation } from "../utils/validation";
 import DB from "../db";
 import mailer from "../utils/mailer";
+import JwtUtils from "../utils/JWT";
 import "dotenv/config";
+import { v4 as uuidv4 } from "uuid";
 import { IUserDTO, IUserResponse } from "../models/user";
+import constants from "../constants/auth";
 
 class AuthServices {
   private validator: Validation;
@@ -13,79 +15,137 @@ class AuthServices {
     this.validator = new Validation();
   }
 
-  public async login(email: string, password: string): Promise<void> {
-    // const user = await DB<IUserDTO>("users").where({ email }).first();
-    // if (!user) throw Error("User with this email address doesn't exist");
-    // const passwordMatch = await bcrypt.compare(password, user.password);
-    // if (!passwordMatch) throw Error("Wrong password");
-    // const updatedCount = await DB<IUserResponse>("users")
-    //   .where({ email })
-    //   .update({ session_id: nanoid() });
-    // if (updatedCount !== 1) throw new Error("Can't update user");
-    // const newUser = await DB<IUserDTO>("users").where({ email }).first();
-    // if (!newUser) throw Error("Database error");
-    // return newUser;
+  public async login(
+    email: string,
+    password: string
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    const user = await DB<IUserResponse>("users").where({ email }).first();
+    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+      throw new Error(constants.invalid_credentials);
+    }
+
+    const accessToken = JwtUtils.generateAccessToken({ userId: user.user_id });
+    const refreshToken = JwtUtils.generateRefreshToken({
+      userId: user.user_id,
+    });
+
+    await DB("refresh_tokens").insert({
+      user_id: user.user_id,
+      token: refreshToken,
+    });
+
+    return { accessToken, refreshToken };
   }
 
-  public async logout(): Promise<void> {}
-
-  public async changePass(email: string, password: string): Promise<void> {
-    // const user = await DB<IUserDTO>("users").where({ email }).first();
-    // if (!user) throw Error("User with this email address doesn't exist");
-    // const hashedPassword = await bcrypt.hash(password, 10);
-    // const updatedCount = await DB<IUserDTO>("users")
-    //   .where({ email })
-    //   .update({ password: hashedPassword });
-    // if (updatedCount !== 1) throw new Error("Can't update user");
-    // const newUser = await DB<IUserDTO>("users").where({ email }).first();
-    // if (!newUser) throw Error("Database error");
-    // return newUser;
+  public async logout(refreshToken: string): Promise<void> {
+    await DB("refresh_tokens").where({ token: refreshToken }).del();
   }
 
-  public async getUserBySession(session_id: string): Promise<void> {
-    // const user = await DB<IUserResponse>("users").where({ session_id }).first();
-    // if (!user) throw Error("Session id is not valid");
-    // return user;
+  public async changePass(email: string, newPassword: string): Promise<void> {
+    const user = await DB<IUserResponse>("users").where({ email }).first();
+    if (!user) {
+      throw new Error(constants.not_found);
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await DB<IUserResponse>("users").where({ email }).update({
+      password_hash: hashedPassword,
+    });
+
+    mailer.sendMessage(
+      email,
+      "Your password has been successfully updated. If you did not perform this action, contact support immediately."
+    );
   }
 
-  public async verifyOTP(email: string, one_time_code: string): Promise<void> {
-    // const user = await DB<IUserResponse>("users").where({ email }).first();
-    // if (!user || user?.one_time_code !== one_time_code)
-    //   throw Error("Session id is not valid");
-    // return user;
+  public async getUserByToken(token: string): Promise<IUserResponse | null> {
+    try {
+      // Verify the JWT token to extract the payload
+      const payload = JwtUtils.verifyToken(token, "access") as {
+        userId: string;
+      };
+
+      // Fetch the user from the database using the userId from the token payload
+      const user = await DB<IUserResponse>("users")
+        .where({ user_id: payload.userId })
+        .first();
+
+      return user || null;
+    } catch (error) {
+      console.error("Error verifying token or fetching user:", error);
+      return null;
+    }
   }
 
-  public async signup(userData: any): Promise<void> {
-    // this.validator.validate(userData);
-    // const checkUser = await DB<IUserDTO>("users")
-    //   .where({ email: userData.email })
-    //   .first();
-    // if (checkUser) throw Error("USER_EXIST");
-    // const hashedPassword = await bcrypt.hash(userData.password, 10);
-    // const user_id = nanoid();
-    // const session_id = nanoid();
-    // await DB<IUserResponse>("users").insert({
-    //   password_hash: hashedPassword,
-    //   user_id,
-    //   session_id,
-    //   email: userData.email,
-    //   firstname: userData.firstname,
-    //   lastname: userData.lastname,
-    //   middlename: userData.middlename,
-    // });
-    // const user = await DB<IUserResponse>("users").where({ user_id }).first();
-    // if (!user) throw Error("Couldn't create user");
-    // return user;
+  public async verifyOTP(email: string, oneTimeCode: string): Promise<void> {
+    const user = await DB<IUserResponse>("users").where({ email }).first();
+    if (!user) throw new Error(constants.not_found);
+
+    if (user.one_time_code !== oneTimeCode) {
+      throw new Error("Invalid OTP");
+    }
+
+    await DB<IUserResponse>("users").where({ email }).update({
+      is_active: true,
+      one_time_code: null,
+    });
+
+    mailer.sendMessage(email, "Your account has been successfully verified.");
+  }
+
+  public async signup(userData: IUserDTO): Promise<void> {
+    this.validator.validate(userData);
+
+    const existingUser = await DB<IUserResponse>("users")
+      .where({ email: userData.email })
+      .first();
+    if (existingUser) throw new Error(constants.already_exist);
+
+    const hashedPassword = await bcrypt.hash(userData.password_hash, 10);
+
+    await DB<IUserResponse>("users").insert({
+      ...userData,
+      password_hash: hashedPassword,
+      is_active: false, // Default to inactive until verification
+      one_time_code: null, // Optional, null initially
+    });
+
+    await this.sendCode(userData.email);
   }
 
   public async sendCode(email: string): Promise<void> {
-    // const user = await DB<IUserResponse>("users").where({ email }).first();
-    // if (!user) throw Error("User with this email address doesn't exist");
-    // const code = customAlphabet("0123456789", 6)();
-    // await DB<IUserResponse>("users")
-    //   .where({ email })
-    //   .update({ one_time_code: code });
-    // mailer.sendMessage(user.email, code);
+    const user = await DB<IUserResponse>("users").where({ email }).first();
+    if (!user) throw new Error(constants.not_found);
+
+    const code = uuidv4().replace(/\D/g, "").slice(0, 6);
+
+    await DB<IUserResponse>("users")
+      .where({ email })
+      .update({ one_time_code: code });
+
+    mailer.sendMessage(user.email, `Your OTP is: ${code}`);
+  }
+
+  public async refreshTokens(
+    refreshToken: string
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    const payload = JwtUtils.verifyToken(refreshToken, "refresh") as {
+      userId: string;
+    };
+
+    const newAccessToken = JwtUtils.generateAccessToken({
+      userId: payload.userId,
+    });
+    const newRefreshToken = JwtUtils.generateRefreshToken({
+      userId: payload.userId,
+    });
+
+    await DB("refresh_tokens")
+      .where({ user_id: payload.userId })
+      .update({ token: newRefreshToken });
+
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
   }
 }
 

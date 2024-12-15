@@ -1,3 +1,5 @@
+import { IUserDTO } from "../models/user";
+
 export class Validation {
   private validateUsername(username: string) {
     const reg = /^[\u0531-\u0587\u0561-\u0587\u055A\u055B'-]+$/u;
@@ -14,18 +16,24 @@ export class Validation {
     return password.length >= 10;
   }
 
+  private validatePhone(phone: string) {
+    const reg = /^(\+374)(\d{8})$/;
+    return reg.test(phone);
+  }
+
+  private validateOneTimeCode(one_time_code: string) {
+    return /^[0-9]{6}$/.test(one_time_code);
+  }
+
   public validate({
-    firstname,
-    lastname,
+    first_name,
+    last_name,
     email,
-    password,
-  }: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-  }) {
-    if (!this.validateUsername(firstname) || !this.validateUsername(lastname)) {
+    password_hash,
+    phone,
+    one_time_code,
+  }: IUserDTO) {
+    if (!this.validateUsername(first_name) || !this.validateUsername(last_name)) {
       throw new Error("Invalid username");
     }
 
@@ -33,8 +41,16 @@ export class Validation {
       throw new Error("Invalid email");
     }
 
-    if (!this.validatePassword(password)) {
+    if (!this.validatePassword(password_hash)) {
       throw new Error("Invalid password");
+    }
+
+    if (!this.validatePhone(phone)) {
+      throw new Error("Invalid phone number");
+    }
+
+    if (one_time_code && !this.validateOneTimeCode(one_time_code)) {
+      throw new Error("Invalid one-time code");
     }
   }
 }

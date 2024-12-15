@@ -5,6 +5,7 @@ export interface IUserDTO {
   password_hash: string;
   phone: string;
   is_active: boolean;
+  one_time_code: string | null;
 }
 
 export interface IUserResponse {
@@ -15,4 +16,5 @@ export interface IUserResponse {
   password_hash: string;
   phone: string;
   is_active: boolean;
+  one_time_code: string | null;
 }

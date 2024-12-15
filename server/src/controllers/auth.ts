@@ -25,9 +25,10 @@ class AuthController {
     }
   }
 
-  async logout(_: Request, res: Response) {
+  async logout(req: Request, res: Response) {
     try {
-      await authServices.logout();
+      const refreshToken = req.cookies["refreshToken"];
+      await authServices.logout(refreshToken);
       res.status(200).send("User logged out successfully!");
     } catch (error) {
       console.log("Error authenticating user:", error);
@@ -76,4 +77,4 @@ class AuthController {
   }
 }
 
-export default new AuthController()
+export default new AuthController();
