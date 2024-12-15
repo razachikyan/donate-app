@@ -1,29 +1,59 @@
 # Donate App
 
-A full-stack web application for managing donations of items. Users can donate items, and the platform tracks the transactions between donors and recipients. Built with React for the frontend and Express with PostgreSQL for the backend.
+A full-stack web application for managing donations of items. Users can donate items, track transactions, and manage their donation status.
 
-## Project Structure
+## Table of Contents
 
-The project is divided into two main folders:
+- [Project Overview](#project-overview)
+- [Technologies](#technologies)
+- [Setup Instructions](#setup-instructions)
+- [Running the Application](#running-the-application)
+- [Database Setup and Migrations](#database-setup-and-migrations)
+- [Contributing](#contributing)
+- [License](#license)
 
-- `client`: The frontend React app.
-- `server`: The backend Express app.
+## Project Overview
 
-## Prerequisites
+This project consists of two parts:
 
-Before you begin, ensure you have the following installed on your local machine:
+1. **Frontend (Client)**: A React-based frontend application for users to interact with.
+2. **Backend (Server)**: An Express-based backend API that handles data and interactions with the database.
 
-- [Docker](https://www.docker.com/get-started)
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
-- [git](https://git-scm.com/)
-- [TypeScript](https://www.typescriptlang.org/)
+The project allows users to donate items, track transactions, and manage their donation status. It is built using PostgreSQL as the database.
 
-## Setting Up the Project
+## Technologies
 
-### 1. Clone the Repositories
+### Frontend (Client)
 
-Clone both the frontend and backend repositories to your local machine:
+- **React**: A JavaScript library for building user interfaces.
+- **Material UI**: A popular React UI framework.
+- **Formik**: For handling forms and validations.
+- **Yup**: For schema validation.
+- **React Router**: For routing and navigation in the app.
+- **Axios**: For making HTTP requests to the backend API.
+
+### Backend (Server)
+
+- **Node.js**: A JavaScript runtime for the backend.
+- **Express**: A web framework for building RESTful APIs.
+- **Knex.js**: SQL query builder for interacting with the PostgreSQL database.
+- **PostgreSQL**: Relational database used for storing data.
+- **JWT (JSON Web Tokens)**: For user authentication.
+- **Bcrypt**: For hashing passwords.
+- **Nodemailer**: For sending email notifications.
+- **Typescript**: For type safety and improved development experience.
+
+### Database
+
+- **PostgreSQL**: Used for storing data about users, items, transactions, etc.
+
+## Setup Instructions
+
+Follow these steps to set up the project locally.
+
+### 1. Clone the Repository
+
+Clone the project repository to your local machine:
 
 ```bash
 git clone https://github.com/razachikyan/donate-app.git
