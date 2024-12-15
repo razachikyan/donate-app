@@ -1,59 +1,78 @@
-# Donate App
+<h1 align="center">Donate app</h1>
 
-A full-stack web application for managing donations of items. Users can donate items, track transactions, and manage their donation status.
+## The Documentation file for project setup. Do the steps in the mentioned order. Before you begin, ensure you have the following installed on your local machine:
 
-## Table of Contents
+- [Docker](https://www.docker.com/get-started)
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [git](https://git-scm.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-- [Project Overview](#project-overview)
-- [Technologies](#technologies)
-- [Setup Instructions](#setup-instructions)
-- [Running the Application](#running-the-application)
-- [Database Setup and Migrations](#database-setup-and-migrations)
-- [Contributing](#contributing)
-- [License](#license)
+### Project Setup
 
-## Project Overview
-
-This project consists of two parts:
-
-1. **Frontend (Client)**: A React-based frontend application for users to interact with.
-2. **Backend (Server)**: An Express-based backend API that handles data and interactions with the database.
-
-The project allows users to donate items, track transactions, and manage their donation status. It is built using PostgreSQL as the database.
-
-## Technologies
-
-### Frontend (Client)
-
-- **React**: A JavaScript library for building user interfaces.
-- **Material UI**: A popular React UI framework.
-- **Formik**: For handling forms and validations.
-- **Yup**: For schema validation.
-- **React Router**: For routing and navigation in the app.
-- **Axios**: For making HTTP requests to the backend API.
-
-### Backend (Server)
-
-- **Node.js**: A JavaScript runtime for the backend.
-- **Express**: A web framework for building RESTful APIs.
-- **Knex.js**: SQL query builder for interacting with the PostgreSQL database.
-- **PostgreSQL**: Relational database used for storing data.
-- **JWT (JSON Web Tokens)**: For user authentication.
-- **Bcrypt**: For hashing passwords.
-- **Nodemailer**: For sending email notifications.
-- **Typescript**: For type safety and improved development experience.
-
-### Database
-
-- **PostgreSQL**: Used for storing data about users, items, transactions, etc.
-
-## Setup Instructions
-
-Follow these steps to set up the project locally.
-
-### 1. Clone the Repository
-
-Clone the project repository to your local machine:
-
+- Clone the project repository
 ```bash
 git clone https://github.com/razachikyan/donate-app.git
+```
+- Open the project folder with your favorite code editor
+
+#### Setup the Frontend
+- Open the frontend project folder
+  ```bash
+  cd client
+  ```
+- Install the necessary packages and libs
+  ```bash
+  npm install
+  ```
+- Define the environment variables (copy the text from .env.example file, create .env file, past the copied text and define the values)
+- Run the project in development mode
+  ```bash
+  npm run dev
+  ```
+- Build the project
+  ```bash
+  npm run build
+  ```
+- Run the project in production mode
+  ```bash
+  npm start
+  ```
+
+#### Setup the Backend
+
+- Open the frontend project folder
+  ```bash
+  cd server
+  ```
+- Install the necessary packages and libs
+  ```bash
+  npm install
+  ```
+- Define the environment variables (copy the text from the `.env.example` file, create a `.env` file, past the copied text and define the values)
+- Run the project in development mode
+  ```bash
+  npm run dev
+  ```
+- Build the project
+  ```bash
+  npm run build
+  ```
+- Run the project in production mode
+  ```bash
+  npm start
+  ```
+
+#### Setup the Database
+
+ ----------
+
+[![version][version-badge]][npm]
+[![downloads][downloads-badge]][npm]
+[![size][size-badge]][bundlephobia]
+[![github actions][github-actions-badge]][github-actions]
+[![coverage][codecov-badge]][codecov]
+[![typescript][typescript-badge]][typescript]
+[![contributing][contributing-badge]][contributing]
+[![contributors][contributors-badge]][contributors]
+[![discord][discord-badge]][discord]
