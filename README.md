@@ -67,12 +67,3 @@ git clone https://github.com/razachikyan/donate-app.git
 
  ----------
 
-[![version][version-badge]][npm]
-[![downloads][downloads-badge]][npm]
-[![size][size-badge]][bundlephobia]
-[![github actions][github-actions-badge]][github-actions]
-[![coverage][codecov-badge]][codecov]
-[![typescript][typescript-badge]][typescript]
-[![contributing][contributing-badge]][contributing]
-[![contributors][contributors-badge]][contributors]
-[![discord][discord-badge]][discord]
