@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import "dotenv/config";
+import env from './env'
 
-const baseURL = process.env.REACT_PUBLIC_BACK_BASE;
+const baseURL = env.BASE_URL;
 
 interface ApiResponse<T> {
   data: T;
