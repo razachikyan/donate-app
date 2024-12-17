@@ -62,8 +62,15 @@ git clone https://github.com/razachikyan/donate-app.git
   ```bash
   npm start
   ```
-
 #### Setup the Database
 
- ----------
+- Start the PostgreSQL container 
+  ```bash
+  docker-compose up --build
+  ```
+- Run the migrations
+  ```bash
+  cd server
+  npm run migrate
+  ```
 
