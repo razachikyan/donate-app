@@ -11,12 +11,17 @@ const tabData = [
   {
     label: "Մուտք գործել",
     key: "login",
-    content: <div>Մուտք գործել բովանդակություն</div>,
+    content: <Box>Մուտք գործել բովանդակություն</Box>,
+  },
+  {
+    label: "/",
+    key: "slash",
+    content: null,
   },
   {
     label: "Գրանցվել",
     key: "signup",
-    content: <div>Գրանցվել բովանդակություն</div>,
+    content: <Box>Գրանցվել բովանդակություն</Box>,
   },
 ];
 
@@ -24,12 +29,17 @@ const tabData2 = [
   {
     label: "անհատ",
     key: "login",
-    content: <div>Մուտք գործել բովանդակություն</div>,
+    content: <Box>Մուտք գործել բովանդակություն</Box>,
+  },
+  {
+    label: "/",
+    key: "slash",
+    content: null,
   },
   {
     label: "կազմակերպություն",
     key: "signup",
-    content: <div>Գրանցվել բովանդակություն</div>,
+    content: <Box>Գրանցվել բովանդակություն</Box>,
   },
 ];
 
@@ -89,33 +99,16 @@ export const Auth = () => {
               aria-label="auth tabs"
               centered
             >
-              {tabData.flatMap((tab, index) =>
-                index % 2 === 0 ? (
-                  [
-                    <Tab
-                      className={styles.tab}
-                      key={index}
-                      label={tab.label}
-                      id={`tab-${index}`}
-                      aria-controls={`tab-panel-${index}`}
-                    />,
-                    <span
-                      key={`separator-${index}`}
-                      className={styles.separator}
-                    >
-                      /
-                    </span>,
-                  ]
-                ) : (
-                  <Tab
-                    className={styles.tab}
-                    key={index}
-                    label={tab.label}
-                    id={`tab-${index}`}
-                    aria-controls={`tab-panel-${index}`}
-                  />
-                )
-              )}
+              {tabData.map((tab, index) => (
+                <Tab
+                  className={styles.tab}
+                  key={index}
+                  disabled={index % 2 !== 0}
+                  label={tab.label}
+                  id={`tab-${index}`}
+                  aria-controls={`tab-panel-${index}`}
+                />
+              ))}
             </Tabs>
             {tabData.map((tab, index) => (
               <TabPanel key={index} value={value} index={index}>
@@ -131,33 +124,16 @@ export const Auth = () => {
               aria-label="auth tabs"
               centered
             >
-              {tabData2.flatMap((tab, index) =>
-                index % 2 === 0 ? (
-                  [
-                    <Tab
-                      className={styles.tab}
-                      key={index}
-                      label={tab.label}
-                      id={`tab-${index}`}
-                      aria-controls={`tab-panel-${index}`}
-                    />,
-                    <span
-                      key={`separator-${index}`}
-                      className={styles.separator}
-                    >
-                      /
-                    </span>,
-                  ]
-                ) : (
-                  <Tab
-                    className={styles.tab}
-                    key={index}
-                    label={tab.label}
-                    id={`tab-${index}`}
-                    aria-controls={`tab-panel-${index}`}
-                  />
-                )
-              )}
+              {tabData2.flatMap((tab, index) => (
+                <Tab
+                  className={styles.tab}
+                  key={index}
+                  disabled={index % 2 !== 0}
+                  label={tab.label}
+                  id={`tab-${index}`}
+                  aria-controls={`tab-panel-${index}`}
+                />
+              ))}
             </Tabs>
             {tabData2.map((tab, index) => (
               <TabPanel key={index} value={value2} index={index}>

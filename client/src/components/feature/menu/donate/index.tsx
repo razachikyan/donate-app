@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { Button } from "../../button";
 
 import styles from "./styles.module.css";
 

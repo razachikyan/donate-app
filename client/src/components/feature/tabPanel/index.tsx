@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import styles from './styles.module.css'
 
 export const TabPanel = (props: {
@@ -8,7 +9,7 @@ export const TabPanel = (props: {
   const { children, index, value, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`tab-panel-${index}`}
@@ -17,6 +18,6 @@ export const TabPanel = (props: {
       className={styles.tabPanel}
     >
       {value === index && <>{children}</>}
-    </div>
+    </Box>
   );
 };

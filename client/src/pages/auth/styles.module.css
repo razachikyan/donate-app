@@ -23,9 +23,7 @@
   }
 }
 
-.separator {
-  color: white;
-  display: flex;
-  align-items: center;
-  font-size: 20px;
+.tab:nth-child(2n) {
+  padding: 0;
+  min-width: 10px;
 }

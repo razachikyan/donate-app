@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import cx from "classnames";
 
 import styles from "./styles.module.css";
@@ -7,8 +8,8 @@ export const Layout = ({
   background = false,
 }: React.PropsWithChildren & { background?: boolean }) => {
   return (
-    <div className={cx(styles.layout, { [styles.background]: background })}>
+    <Box className={cx(styles.layout, { [styles.background]: background })}>
       {children}
-    </div>
+    </Box>
   );
 };

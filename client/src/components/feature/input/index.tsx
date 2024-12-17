@@ -1,5 +1,6 @@
-import { TextField, Input as MUIInput } from "@mui/material";
+import { TextField } from "@mui/material";
 import { IInputProps } from "./types";
+
 import styles from "./styles.module.css";
 
 export const Input: React.FC<IInputProps> = ({
@@ -22,6 +23,7 @@ export const Input: React.FC<IInputProps> = ({
           },
         },
       }}
+      className={styles.input}
       label={label}
       value={value}
       onChange={onChange}
@@ -29,9 +31,14 @@ export const Input: React.FC<IInputProps> = ({
       name={name}
       type={type}
       error={error}
+      
       helperText={helperText}
-      className={styles.input}
-      autoComplete="off"
+      inputProps={{
+        autoComplete: "new-password",
+        form: {
+          autoComplete: "off",
+        },
+      }}
     />
   );
 };

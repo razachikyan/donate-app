@@ -43,7 +43,7 @@ export const Menu = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <Box className={styles.container}>
       <button
         onClick={() => setMenu((prev) => !prev)}
         className={styles.button}
@@ -51,9 +51,9 @@ export const Menu = () => {
         <img src="icons/menu.svg" alt="menu" />
       </button>
       {menu && (
-        <div className={styles.menu}>
+        <Box className={styles.menu}>
           <a href="/auth" className={styles.account}>
-            Պրոֆիլ <img src="/icons/arrow.svg" width={28} />
+            Պրոֆիլ <img src="/icons/arrow.svg" alt="arrow" width={28} />
           </a>
           <Tabs
             TabIndicatorProps={{
@@ -72,8 +72,8 @@ export const Menu = () => {
               {tab.content}
             </TabPanel>
           ))}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
