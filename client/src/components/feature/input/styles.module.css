@@ -12,6 +12,13 @@
     font-size: 20px !important;
     color: #fff !important;
   }
+  * {
+    background: transparent !important;
+  }
+
+  input, fieldset {
+    border-radius: 50px !important;
+  }
 
   label {
     background-color: black !important;

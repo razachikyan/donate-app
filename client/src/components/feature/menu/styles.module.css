@@ -25,9 +25,13 @@
 }
 
 .account {
+  color: #fff;
   position: absolute;
   top: 35px;
   left: 760px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .tab {
