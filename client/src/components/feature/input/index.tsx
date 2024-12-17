@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, Input as MUIInput } from "@mui/material";
 import { IInputProps } from "./types";
 import styles from "./styles.module.css";
 
@@ -14,6 +14,7 @@ export const Input: React.FC<IInputProps> = ({
 }) => {
   return (
     <TextField
+      color="primary"
       sx={{
         "& .MuiOutlinedInput-root": {
           "&.Mui-focused fieldset": {
@@ -30,7 +31,7 @@ export const Input: React.FC<IInputProps> = ({
       error={error}
       helperText={helperText}
       className={styles.input}
-      autoComplete="new-password"
+      autoComplete="off"
     />
   );
 };

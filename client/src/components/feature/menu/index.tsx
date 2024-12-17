@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 import { DonatePanel } from "./donate";
 import { FeedBack } from "./feedback";
 
@@ -52,7 +52,9 @@ export const Menu = () => {
       </button>
       {menu && (
         <div className={styles.menu}>
-          <span className={styles.account}>Պրոֆիլ</span>
+          <a href="/auth" className={styles.account}>
+            Պրոֆիլ <img src="/icons/arrow.svg" width={28} />
+          </a>
           <Tabs
             TabIndicatorProps={{
               style: { backgroundColor: "#e08760" },
@@ -75,5 +77,3 @@ export const Menu = () => {
     </div>
   );
 };
-
-
