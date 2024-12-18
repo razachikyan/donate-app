@@ -2,7 +2,7 @@ import { IUserDTO } from "../models/user";
 
 export class Validation {
   private validateUsername(username: string) {
-    const reg = /^[\u0531-\u0587\u0561-\u0587\u055A\u055B'-]+$/u;
+    const reg = /^[A-Za-z0-9_-]+$/;
     return username.length >= 3 && reg.test(username);
   }
 
@@ -26,14 +26,14 @@ export class Validation {
   }
 
   public validate({
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     email,
-    password_hash,
+    password,
     phone,
     one_time_code,
   }: IUserDTO) {
-    if (!this.validateUsername(first_name) || !this.validateUsername(last_name)) {
+    if (!this.validateUsername(firstName) || !this.validateUsername(lastName)) {
       throw new Error("Invalid username");
     }
 
@@ -41,7 +41,7 @@ export class Validation {
       throw new Error("Invalid email");
     }
 
-    if (!this.validatePassword(password_hash)) {
+    if (!this.validatePassword(password)) {
       throw new Error("Invalid password");
     }
 

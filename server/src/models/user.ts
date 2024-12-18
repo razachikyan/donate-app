@@ -1,8 +1,8 @@
 export interface IUserDTO {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password_hash: string;
+  password: string;
   phone: string;
   is_active: boolean;
   one_time_code: string | null;
@@ -10,10 +10,10 @@ export interface IUserDTO {
 
 export interface IUserResponse {
   user_id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password_hash: string;
+  password: string;
   phone: string;
   is_active: boolean;
   one_time_code: string | null;

@@ -20,7 +20,7 @@ class AuthServices {
     password: string
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const user = await DB<IUserResponse>("users").where({ email }).first();
-    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new Error(constants.invalid_credentials);
     }
 
@@ -50,7 +50,7 @@ class AuthServices {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     await DB<IUserResponse>("users").where({ email }).update({
-      password_hash: hashedPassword,
+      password: hashedPassword,
     });
 
     mailer.sendMessage(
@@ -102,13 +102,13 @@ class AuthServices {
       .first();
     if (existingUser) throw new Error(constants.already_exist);
 
-    const hashedPassword = await bcrypt.hash(userData.password_hash, 10);
-
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    
     await DB<IUserResponse>("users").insert({
       ...userData,
-      password_hash: hashedPassword,
-      is_active: false, // Default to inactive until verification
-      one_time_code: null, // Optional, null initially
+      password: hashedPassword,
+      is_active: false,
+      one_time_code: null,
     });
 
     await this.sendCode(userData.email);

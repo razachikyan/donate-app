@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { signupSchema } from "../from/validationSchemas/signupSchema";
+import authService from "../services/authService";
 
 export const useSignup = () => {
   const formik = useFormik({
@@ -12,12 +13,24 @@ export const useSignup = () => {
       confirmPassword: "",
     },
     validationSchema: signupSchema,
-    onSubmit: (values) => {
-      console.log("Sign up values:", values);
+    onSubmit: async (values) => {
+      try {
+        const response = await authService.signUp(
+          values.firstName,
+          values.lastName,
+          values.email,
+          values.phone,
+          values.password
+        );
+
+        console.log("Signup successful:", response);
+      } catch (error) {
+        console.error("Signup failed:", error);
+      }
     },
   });
 
   return {
-    formik
-  }
+    formik,
+  };
 };

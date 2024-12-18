@@ -7,7 +7,7 @@ class AuthService {
   public async signIn(email: string, password: string): Promise<AuthResponse> {
     try {
       const response = await axiosClient.post<SigninDTO, AuthResponse>(
-        "/signin",
+        "/auth/signin",
         { email, password }
       );
       return response.data;
@@ -26,7 +26,7 @@ class AuthService {
   ): Promise<AuthResponse> {
     try {
       const response = await axiosClient.post<SignupDTO, AuthResponse>(
-        "/signup",
+        "/auth/signup",
         {
           firstName,
           lastName,

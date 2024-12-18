@@ -6,22 +6,24 @@ class AuthController {
 
   async signup(req: Request, res: Response) {
     try {
-      console.log('--------------', req.body);
-      
-      // const user = await authServices.signup(req.body);
-      // res.status(201).json(user);
-    } catch (error) {
+      await authServices.signup(req.body);
+      res.status(201).json({
+        message:
+          "User created successfully, please check your email for OTP verification.",
+      });
+    } catch (error: any) {
       console.log("Error creating user:", error);
-      res.status(500).json(error);
+      res
+        .status(500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
-  
+
   async login(req: Request, res: Response) {
     try {
-      console.log('--------------', req.body);
-      // const { email, password } = req.body;
-      // const user = await authServices.login(email, password);
-      // res.status(200).json(user);
+      const { email, password } = req.body;
+      const user = await authServices.login(email, password);
+      res.status(200).json(user);
     } catch (error) {
       console.log("Error authenticating user:", error);
       res.status(500).json(error);
