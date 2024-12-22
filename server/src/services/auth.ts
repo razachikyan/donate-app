@@ -3,10 +3,10 @@ import { Validation } from "../utils/validation";
 import DB from "../db";
 import mailer from "../utils/mailer";
 import JwtUtils from "../utils/JWT";
-import "dotenv/config";
 import { v4 as uuidv4 } from "uuid";
 import { IUserDTO, IUserResponse } from "../models/user";
 import constants from "../constants/auth";
+import "dotenv/config";
 
 class AuthServices {
   private validator: Validation;
@@ -161,13 +161,36 @@ class AuthServices {
   }
 
   public async isAuthorized(
-    accessToken: string
-  ): Promise<IUserResponse | null> {
+    accessToken: string,
+    refreshToken: string | null
+  ): Promise<IUserResponse & {accessToken? : string} | null> {
     try {
-      const payload = JwtUtils.verifyToken(accessToken, "access") as {
-        userId: string;
-      };
+      let payload;
+      try {
+        payload = JwtUtils.verifyToken(accessToken, "access") as {
+          userId: string;
+        };
+      } catch (error) {
+        if (refreshToken) {
+          const refreshPayload = JwtUtils.verifyToken(
+            refreshToken,
+            "refresh"
+          ) as { userId: string };
 
+          if (refreshPayload) {
+            const newAccessToken = JwtUtils.generateAccessToken({
+              userId: refreshPayload.userId,
+            });
+
+            const user = await DB<IUserResponse>("users")
+              .where({ user_id: refreshPayload.userId })
+              .first();
+
+            if (user) return { ...user, accessToken: newAccessToken };
+          }
+        }
+        return null;
+      }
       const user = await DB<IUserResponse>("users")
         .where({ user_id: payload.userId })
         .first();

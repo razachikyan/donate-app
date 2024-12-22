@@ -109,15 +109,19 @@ class AuthController {
   async isAuthorized(req: Request, res: Response) {
     try {
       const accessToken = req.headers.authorization?.split(" ")[1];
-      if (!accessToken) throw new Error("Empty access token");
+      const { refreshToken } = req.cookies;
+      if (!accessToken) throw new Error("Access token is required");
 
-      const user = await authServices.isAuthorized(accessToken);
+      const user = await authServices.isAuthorized(accessToken, refreshToken);
+
       if (!user) throw new Error("Unauthorized");
+      const { accessToken: newToken } = user;
+      if (newToken) res.setHeader("Authorization", `Bearer ${newToken}`);
 
       res.status(200).json({ user });
     } catch (error: any) {
       console.error("Error during authorization check:", error);
-      res.status(500).json({ message: error.message });
+      res.status(401).json({ message: error.message || "Unauthorized" });
     }
   }
 }
