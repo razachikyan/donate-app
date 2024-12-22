@@ -1,5 +1,5 @@
 import React from "react";
-import { Button as MUIButton } from "@mui/material";
+import { CircularProgress, Button as MUIButton } from "@mui/material";
 import cx from "classnames";
 import { IButtonProps } from "./types.ts";
 
@@ -9,6 +9,7 @@ export const Button: React.FC<IButtonProps> = ({
   onClick,
   children,
   className,
+  loading = false,
   type = "button",
 }) => {
   return (
@@ -18,6 +19,7 @@ export const Button: React.FC<IButtonProps> = ({
       className={cx(styles.button, className)}
     >
       {children}
+      {loading && <CircularProgress thickness={5.5} color="error" size={30} />}
     </MUIButton>
   );
 };

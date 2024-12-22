@@ -5,6 +5,7 @@
 
   label,
   p,
+  input,
   input {
     font-family: Arial !important;
     font-weight: 400 !important;
@@ -13,12 +14,17 @@
     margin: 0;
   }
 
+  input:disabled {
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+  }
+
   label {
     background-color: black !important;
     padding: 5px !important;
   }
 
-  &, * {
+  &,
+  * {
     border-radius: 50px !important;
   }
 }

@@ -10,5 +10,6 @@ router.post("/refresh", authController.refresh);
 router.post("/activate", authController.sendCode);
 router.post("/verify-otp", authController.verifyOTP);
 router.post("/change-pass", authController.changePass);
+router.get("/is-authorized", authController.isAuthorized);
 
 export default router;

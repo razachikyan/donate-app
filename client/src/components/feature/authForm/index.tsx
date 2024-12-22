@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 import { Input } from "../input";
 import { Button } from "../button";
 import { useSignin } from "../../../hooks/useSignin";
@@ -7,8 +9,44 @@ import { useSignup } from "../../../hooks/useSignup";
 import styles from "./styles.module.css";
 
 export const AuthForm: React.FC<{ form: "signin" | "signup" }> = ({ form }) => {
-  const { formik: signin } = useSignin();
-  const { formik: signup } = useSignup();
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const {
+    formik: signin,
+    data: signinData,
+    error: signinError,
+    pending: signinPending,
+  } = useSignin();
+  const {
+    formik: signup,
+    data: signupData,
+    error: signupError,
+    pending: signupPending,
+  } = useSignup();
+
+  useEffect(() => {
+    const isFormSuccess =
+      form === "signin"
+        ? !signinPending && !signinError && signinData
+        : !signupPending && !signupError && signupData;
+
+    if (isFormSuccess) {
+      navigate(`/verify?email=${signup.values.email}`, { replace: true });
+    }
+  }, [
+    form,
+    signinData,
+    signinError,
+    signupError,
+    signinPending,
+    signupData,
+    signupPending,
+    navigate,
+  ]);
+
+  useEffect(() => {
+    setError(form === "signin" ? signinError : signupError);
+  }, [signinError, signupError]);
 
   return (
     <form
@@ -44,7 +82,7 @@ export const AuthForm: React.FC<{ form: "signin" | "signup" }> = ({ form }) => {
             }
           />
         </>
-      ) : form === "signup" ? (
+      ) : (
         <>
           <Input
             value={signup.values.firstName ?? ""}
@@ -124,10 +162,17 @@ export const AuthForm: React.FC<{ form: "signin" | "signup" }> = ({ form }) => {
             }
           />
         </>
-      ) : (
-        ""
       )}
-      <Button type="submit" className={styles.submitButton}>
+      {error && (
+        <Alert color="error" variant="filled">
+          {error}
+        </Alert>
+      )}
+      <Button
+        loading={signinPending || signupPending}
+        type="submit"
+        className={styles.submitButton}
+      >
         {form === "signin" ? "Sign In" : "Sign Up"}
       </Button>
     </form>

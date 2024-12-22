@@ -13,7 +13,7 @@ export class Validation {
   }
 
   private validatePassword(password: string) {
-    return password.length >= 10;
+    return password.length >= 6;
   }
 
   private validatePhone(phone: string) {

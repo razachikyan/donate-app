@@ -3,6 +3,7 @@ import { HomePage } from "./pages/home/page";
 import { Layout } from "./components/feature/layout";
 import { AboutUs } from "./pages/about-us";
 import { Auth } from "./pages/auth/page";
+import { Verify } from "./pages/verify/page";
 
 export const router = createBrowserRouter(
   [
@@ -21,6 +22,10 @@ export const router = createBrowserRouter(
     {
       path: '/auth',
       element: <Auth />
+    },
+    {
+      path: '/verify',
+      element: <Verify />
     },
     {
       path: '/user',

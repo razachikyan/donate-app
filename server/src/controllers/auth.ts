@@ -22,11 +22,22 @@ class AuthController {
   async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-      const user = await authServices.login(email, password);
-      res.status(200).json(user);
-    } catch (error) {
-      console.log("Error authenticating user:", error);
-      res.status(500).json(error);
+      const { accessToken, refreshToken } = await authServices.login(
+        email,
+        password
+      );
+
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+
+      res.status(200).json({ accessToken });
+    } catch (error: any) {
+      console.error("Error logging in:", error.message);
+      res.status(500).json({ message: "Login failed", error: error.message });
     }
   }
 
@@ -54,12 +65,26 @@ class AuthController {
 
   async verifyOTP(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
-      const user = await authServices.verifyOTP(email, password);
-      res.status(200).json(user);
-    } catch (error) {
-      console.log("Error authenticating user:", error);
-      res.status(500).json(error);
+      const { email, oneTimeCode } = req.body;
+
+      const { accessToken, refreshToken } = await authServices.verifyOTP(
+        email,
+        oneTimeCode
+      );
+
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+
+      res.status(200).json({ accessToken });
+    } catch (error: any) {
+      console.error("Error verifying OTP:", error.message);
+      res
+        .status(500)
+        .json({ message: "Failed to verify OTP", error: error.message });
     }
   }
 
@@ -78,6 +103,21 @@ class AuthController {
       res.sendStatus(200);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  async isAuthorized(req: Request, res: Response) {
+    try {
+      const accessToken = req.headers.authorization?.split(" ")[1];
+      if (!accessToken) throw new Error("Empty access token");
+
+      const user = await authServices.isAuthorized(accessToken);
+      if (!user) throw new Error("Unauthorized");
+
+      res.status(200).json({ user });
+    } catch (error: any) {
+      console.error("Error during authorization check:", error);
+      res.status(500).json({ message: error.message });
     }
   }
 }

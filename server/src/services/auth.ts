@@ -61,12 +61,10 @@ class AuthServices {
 
   public async getUserByToken(token: string): Promise<IUserResponse | null> {
     try {
-      // Verify the JWT token to extract the payload
       const payload = JwtUtils.verifyToken(token, "access") as {
         userId: string;
       };
 
-      // Fetch the user from the database using the userId from the token payload
       const user = await DB<IUserResponse>("users")
         .where({ user_id: payload.userId })
         .first();
@@ -78,7 +76,10 @@ class AuthServices {
     }
   }
 
-  public async verifyOTP(email: string, oneTimeCode: string): Promise<void> {
+  public async verifyOTP(
+    email: string,
+    oneTimeCode: string
+  ): Promise<{ accessToken: string; refreshToken: string }> {
     const user = await DB<IUserResponse>("users").where({ email }).first();
     if (!user) throw new Error(constants.not_found);
 
@@ -91,7 +92,18 @@ class AuthServices {
       one_time_code: null,
     });
 
+    const accessToken = JwtUtils.generateAccessToken({ userId: user.user_id });
+    const refreshToken = JwtUtils.generateRefreshToken({
+      userId: user.user_id,
+    });
+
+    await DB("refresh_tokens").insert({
+      user_id: user.user_id,
+      token: refreshToken,
+    });
+
     mailer.sendMessage(email, "Your account has been successfully verified.");
+    return { accessToken, refreshToken };
   }
 
   public async signup(userData: IUserDTO): Promise<void> {
@@ -103,7 +115,7 @@ class AuthServices {
     if (existingUser) throw new Error(constants.already_exist);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    
+
     await DB<IUserResponse>("users").insert({
       ...userData,
       password: hashedPassword,
@@ -146,6 +158,24 @@ class AuthServices {
       .update({ token: newRefreshToken });
 
     return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+  }
+
+  public async isAuthorized(
+    accessToken: string
+  ): Promise<IUserResponse | null> {
+    try {
+      const payload = JwtUtils.verifyToken(accessToken, "access") as {
+        userId: string;
+      };
+
+      const user = await DB<IUserResponse>("users")
+        .where({ user_id: payload.userId })
+        .first();
+      return user || null;
+    } catch (error) {
+      console.error("Authorization check failed:", error);
+      return null;
+    }
   }
 }
 

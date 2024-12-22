@@ -1,3 +1,13 @@
+.container {
+  padding: 33px;
+}
+
+.box {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+}
+
 .form {
   width: 1000px;
   margin: 0 auto;
@@ -9,3 +19,4 @@
 .submitButton {
   width: 200px !important;
 }
+

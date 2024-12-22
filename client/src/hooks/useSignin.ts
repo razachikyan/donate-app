@@ -1,8 +1,13 @@
 import { useFormik } from "formik";
 import { signinSchema } from "../from/validationSchemas/signinSchema";
 import authService from "../services/authService";
+import { useState } from "react";
+import { AuthResponse } from "../models/responses/AuthResponse";
 
 export const useSignin = () => {
+  const [data, setData] = useState<AuthResponse | null>(null);
+  const [pending, setPending] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -11,16 +16,24 @@ export const useSignin = () => {
     validationSchema: signinSchema,
     onSubmit: async (values) => {
       try {
+        setPending(true);
+        setError(null);
+        setData(null);
         const { email, password } = values;
         const response = await authService.signIn(email, password);
-        console.log("Sign in response:", response);
-      } catch (error) {
-        console.error("Error during sign in:", error);
+        setData(response);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setPending(false);
       }
     },
   });
 
   return {
     formik,
+    data,
+    error,
+    pending,
   };
 };

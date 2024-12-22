@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import env from './env'
+import env from "./env";
 
 const baseURL = env.BASE_URL;
 
@@ -22,6 +22,17 @@ class AxiosClient {
       timeout: 10000,
       withCredentials: true,
     });
+
+    this.client.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
   }
 
   public async get<T>(
