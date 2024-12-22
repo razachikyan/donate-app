@@ -15,7 +15,7 @@ class JwtUtils {
   }
 
   public generateAccessToken(payload: object): string {
-    return jwt.sign(payload, this.accessSecret, { expiresIn: "15m" });
+    return jwt.sign(payload, this.accessSecret, { expiresIn: "1d" });
   }
 
   public generateRefreshToken(payload: object): string {
