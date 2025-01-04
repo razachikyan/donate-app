@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, FormControl, InputLabel } from "@mui/material";
+import { Box, FormControl } from "@mui/material";
 import { Select } from "../../shared/select";
 
 import styles from "./styles.module.css";

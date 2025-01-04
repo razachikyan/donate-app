@@ -1,0 +1,16 @@
+.textarea {
+  border: 2px solid #fff;
+  border-radius: 30px;
+  width: 628px;
+  height: 254px;
+  background-color: transparent;
+  padding: 10px;
+
+  &,
+  &::placeholder {
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+  }
+}

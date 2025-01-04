@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import authService from "../services/authService";
+import authService from "../services/auth.service";
 import { AuthResponse } from "../models/responses/AuthResponse";
-import { signupSchema } from "../from/validationSchemas/signupSchema";
+import { signupSchema } from "../from/validationSchemas/signup.schema";
 
 export const useSignup = () => {
   const [data, setData] = useState<AuthResponse | null>(null);
@@ -21,8 +21,8 @@ export const useSignup = () => {
     onSubmit: async (values) => {
       try {
         setPending(true);
-        setError(null)
-        setData(null)
+        setError(null);
+        setData(null);
         const response = await authService.signUp(
           values.firstName,
           values.lastName,
@@ -33,7 +33,9 @@ export const useSignup = () => {
 
         setData(response);
       } catch (error: any) {
-        setError(error?.response?.data?.error ?? error.message ?? error.message);
+        setError(
+          error?.response?.data?.error ?? error.message ?? error.message
+        );
       } finally {
         setPending(false);
       }

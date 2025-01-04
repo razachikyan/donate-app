@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import authService from "../services/authService";
+import authService from "../services/auth.service";
 import { AuthResponse } from "../models/responses/AuthResponse";
 
 export const useCheckAuth = () => {
@@ -11,7 +11,7 @@ export const useCheckAuth = () => {
   useEffect(() => {
     const checkAuthorization = async () => {
       setLoading(true);
-      setError(null)
+      setError(null);
       try {
         const userResponse = await authService.isAuthorized();
         if (userResponse) {

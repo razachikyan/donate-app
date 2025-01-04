@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { signinSchema } from "../from/validationSchemas/signinSchema";
-import authService from "../services/authService";
+import { signinSchema } from "../from/validationSchemas/signin.schema";
+import authService from "../services/auth.service";
 import { useState } from "react";
 
 export const useSignin = () => {

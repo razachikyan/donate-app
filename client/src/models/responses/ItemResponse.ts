@@ -1,13 +1,3 @@
-export interface IItemDTO {
-  title: string;
-  description: string;
-  category: string;
-  condition: string;
-  status: string;
-  donor_id: string;
-  image_url: string;
-}
-
 export interface IItemResponse {
   item_id: string;
   title: string;
