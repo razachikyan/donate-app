@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import authService from "../services/auth.service";
-import { AuthResponse } from "../models/responses/AuthResponse";
-import { signupSchema } from "../from/validationSchemas/signup.schema";
+import authService from "../../services/auth.service";
+import { AuthResponse } from "../../models/responses/AuthResponse";
+import { signupSchema } from "../../from/validationSchemas/signup.schema";
 
 export const useSignup = () => {
   const [data, setData] = useState<AuthResponse | null>(null);

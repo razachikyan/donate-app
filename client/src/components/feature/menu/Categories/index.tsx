@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import styles from "./styles.module.css";
 import { Box, List, ListItem } from "@mui/material";
-import { useGetCategories } from "../../../../hooks/useGetCategories";
+import { useGetCategories } from "../../../../hooks/categories/useGetCategories";
 import Loading from "../../loading";
 
 export const Categories: React.FC = () => {
@@ -22,7 +22,9 @@ export const Categories: React.FC = () => {
             return (
               <ListItem className={styles.item}>
                 <h4 className={styles.name}>
-                  <a href={`/charity?category=${item.category_id}`}>{item.name}</a>
+                  <a href={`/charity?category=${item.category_id}`}>
+                    {item.name}
+                  </a>
                 </h4>
                 <p className={styles.descr}>{item.description ?? ""}</p>
               </ListItem>

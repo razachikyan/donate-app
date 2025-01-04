@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { Input } from "../input";
 import { Button } from "../button";
-import { useSignin } from "../../../hooks/useSignin";
-import { useSignup } from "../../../hooks/useSignup";
+import { useSignin } from "../../../hooks/auth/useSignin";
+import { useSignup } from "../../../hooks/auth/useSignup";
 
 import styles from "./styles.module.css";
 

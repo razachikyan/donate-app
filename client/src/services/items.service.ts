@@ -36,13 +36,13 @@ class ItemsService {
       return [];
     }
   }
-  public async getItemById(id: string): Promise<Array<IItemResponse>> {
+  public async getItemById(id: string): Promise<IItemResponse | null> {
     try {
-      const response = await axiosClient.get<IItemResponse[]>(`/items/${id}`);
+      const response = await axiosClient.get<IItemResponse>(`/items/${id}`);
       return response.data;
     } catch (err: any) {
       console.error("Error while getting item::", err.message);
-      return [];
+      return null;
     }
   }
 

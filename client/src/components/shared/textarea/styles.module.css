@@ -4,7 +4,7 @@
   width: 628px;
   height: 254px;
   background-color: transparent;
-  padding: 10px;
+  padding: 20px;
 
   &,
   &::placeholder {

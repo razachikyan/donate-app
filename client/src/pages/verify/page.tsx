@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Alert, Box } from "@mui/material";
-import { useVerify } from "../../hooks/useVerify";
+import { useVerify } from "../../hooks/auth/useVerify";
 import { Input } from "../../components/feature/input";
 import { Button } from "../../components/feature/button";
 import { Container } from "../../components/feature/container";

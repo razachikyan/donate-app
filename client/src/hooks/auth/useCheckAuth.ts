@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import authService from "../services/auth.service";
-import { AuthResponse } from "../models/responses/AuthResponse";
+import authService from "../../services/auth.service";
+import { AuthResponse } from "../../models/responses/AuthResponse";
 
 export const useCheckAuth = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);

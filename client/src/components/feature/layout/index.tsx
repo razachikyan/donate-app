@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import cx from "classnames";
 
 import styles from "./styles.module.css";
-import { useCheckAuth } from "../../../hooks/useCheckAuth";
+import { useCheckAuth } from "../../../hooks/auth/useCheckAuth";
 import Loading from "../loading";
 import { Navigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { CategoriesResponse } from "../models/responses/CategoriesResponse";
-import categoriesService from "../services/categories.service";
+import { CategoriesResponse } from "../../models/responses/CategoriesResponse";
+import categoriesService from "../../services/categories.service";
 
 export const useGetCategories = () => {
   const [data, setData] = useState<CategoriesResponse[]>([]);
@@ -22,7 +22,7 @@ export const useGetCategories = () => {
     };
 
     loadCategories();
-  }, []); // Empty dependency array ensures the effect runs only once on mount.
+  }, []);
 
   return {
     data,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import authService from "../services/auth.service";
+import authService from "../../services/auth.service";
 
 export const useVerify = () => {
   const [pending, setPending] = useState(false);
