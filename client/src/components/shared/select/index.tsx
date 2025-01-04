@@ -10,11 +10,19 @@ import cx from "classnames";
 
 import styles from "./styles.module.css";
 
-export const Select: React.FC<ISelectProps> = ({ label, options }) => {
+export const Select: React.FC<ISelectProps> = ({
+  label,
+  options,
+  onChange,
+  value,
+}) => {
   return (
     <FormControl className={styles.container}>
       <InputLabel className={styles.label}>{label}</InputLabel>
       <MUISelect
+        value={value}
+        onChange={onChange}
+        className={styles.select}
         IconComponent={({ className }) => {
           const isOpen = className.includes("MuiSelect-iconOpen");
 
@@ -30,7 +38,6 @@ export const Select: React.FC<ISelectProps> = ({ label, options }) => {
         MenuProps={{
           classes: { paper: styles.list },
         }}
-        className={styles.select}
       >
         {options.map(({ label, value }, i) => {
           return (

@@ -2,7 +2,7 @@
   .label {
     font-family: Arial;
     font-weight: 400;
-    font-size: 36px;
+    font-size: 26px;
     line-height: 36px;
     color: #fff !important;
   }
@@ -27,4 +27,12 @@
 .arrow {
     transition: transform .3s;
   transform: rotate(0deg);
+}
+.option{
+  color:#fff !important;
+}
+
+.select {
+  color: #fff !important;
+  font-size: 20px !important;
 }
