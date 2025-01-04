@@ -1,0 +1,15 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.2);
+  padding-left: 460px;
+  display: flex;
+  align-items: center;
+  font-family: Arial;
+  font-weight: 700;
+  font-size: 40px;
+  color: #fff;
+}

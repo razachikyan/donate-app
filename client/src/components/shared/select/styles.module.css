@@ -1,0 +1,30 @@
+.container {
+  .label {
+    font-family: Arial;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 36px;
+    color: #fff !important;
+  }
+
+  fieldset {
+    border: none !important;
+  }
+}
+
+.list {
+  background: #000 !important;
+
+  ul {
+    background-color: #000 !important;
+  }
+}
+
+.close {
+  transform: rotate(-90deg) !important;
+}
+
+.arrow {
+    transition: transform .3s;
+  transform: rotate(0deg);
+}

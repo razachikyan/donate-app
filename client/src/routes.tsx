@@ -4,6 +4,8 @@ import { Layout } from "./components/feature/layout";
 import { AboutUs } from "./pages/about-us";
 import { Auth } from "./pages/auth/page";
 import { Verify } from "./pages/verify/page";
+import { Charity } from "./pages/charity/page";
+import { AccountPage } from "./pages/Account/page";
 
 export const router = createBrowserRouter(
   [
@@ -16,20 +18,24 @@ export const router = createBrowserRouter(
       ),
     },
     {
-    path: '/about-us',
-      element: <AboutUs />
+      path: "/about-us",
+      element: <AboutUs />,
     },
     {
-      path: '/auth',
-      element: <Auth />
+      path: "/auth",
+      element: <Auth />,
     },
     {
-      path: '/verify',
-      element: <Verify />
+      path: "/verify",
+      element: <Verify />,
     },
     {
-      path: '/user',
-      element: <></>
+      path: "/charity",
+      element: <Charity />,
+    },
+    {
+      path: "/me",
+      element: <AccountPage />,
     },
   ],
   {

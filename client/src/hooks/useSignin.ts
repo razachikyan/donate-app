@@ -2,10 +2,9 @@ import { useFormik } from "formik";
 import { signinSchema } from "../from/validationSchemas/signinSchema";
 import authService from "../services/authService";
 import { useState } from "react";
-import { AuthResponse } from "../models/responses/AuthResponse";
 
 export const useSignin = () => {
-  const [data, setData] = useState<AuthResponse | null>(null);
+  const [data, setData] = useState<{} | null>(null);
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const formik = useFormik({
@@ -23,7 +22,7 @@ export const useSignin = () => {
         const response = await authService.signIn(email, password);
         setData(response);
       } catch (error: any) {
-        setError(error.message);
+        setError(error?.response?.data?.error ?? error.message);
       } finally {
         setPending(false);
       }

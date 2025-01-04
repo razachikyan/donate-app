@@ -5,11 +5,13 @@ import { AuthResponse } from "../models/responses/AuthResponse";
 export const useCheckAuth = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const [user, setUser] = useState<AuthResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const checkAuthorization = async () => {
       setLoading(true);
+      setError(null)
       try {
         const userResponse = await authService.isAuthorized();
         if (userResponse) {
@@ -19,8 +21,8 @@ export const useCheckAuth = () => {
           setIsAuthorized(false);
           setUser(null);
         }
-      } catch (error) {
-        console.error("Error checking authorization:", error);
+      } catch (error: any) {
+        setError(error?.response?.data?.error);
         setIsAuthorized(false);
         setUser(null);
       } finally {
@@ -34,6 +36,7 @@ export const useCheckAuth = () => {
   return {
     isAuthorized,
     user,
+    error,
     loading,
   };
 };

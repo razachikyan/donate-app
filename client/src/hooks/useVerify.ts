@@ -14,9 +14,11 @@ export const useVerify = () => {
       const response = await authService.verify(email, oneTimeCode);
       setData(response);
       return response;
-    } catch (err: any) {
-      setError(err?.message || "Something went wrong");
-      throw err;
+    } catch (error: any) {
+      setError(
+        error?.response?.data?.error ??
+          (error.message || "Something went wrong")
+      );
     } finally {
       setPending(false);
     }

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.username {
+  font-family: Arial;
+  font-weight: 700;
+  font-size: 30px;
+  color: #fff;
+}

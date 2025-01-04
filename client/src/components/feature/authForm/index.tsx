@@ -31,7 +31,11 @@ export const AuthForm: React.FC<{ form: "signin" | "signup" }> = ({ form }) => {
         : !signupPending && !signupError && signupData;
 
     if (isFormSuccess) {
-      navigate(`/verify?email=${signup.values.email}`, { replace: true });
+      if (form === "signin") {
+        navigate(`/`, { replace: true });
+      } else if (form === "signup") {
+        navigate(`/verify?email=${signup.values.email}`, { replace: true });
+      }
     }
   }, [
     form,

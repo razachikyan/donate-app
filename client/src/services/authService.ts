@@ -5,7 +5,7 @@ import { VerifyDTO } from "../models/dtos/VerifyDTO";
 import { AuthResponse } from "../models/responses/AuthResponse";
 
 class AuthService {
-  public async signIn(email: string, password: string): Promise<boolean> {
+  public async signIn(email: string, password: string): Promise<string> {
     try {
       const response = await axiosClient.post<
         SigninDTO,
@@ -15,7 +15,7 @@ class AuthService {
       const { accessToken } = response.data;
       localStorage.setItem("accessToken", accessToken);
 
-      return true;
+      return accessToken;
     } catch (error) {
       console.error("Error signing in:", error);
       throw error;
@@ -50,7 +50,7 @@ class AuthService {
   async isAuthorized(): Promise<AuthResponse | null> {
     try {
       const response = await axiosClient.get<AuthResponse>(
-        "/auth//is-authorized"
+        "/auth/is-authorized"
       );
       return response.data;
     } catch (error) {
