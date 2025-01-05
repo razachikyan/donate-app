@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import { Container } from "../../components/feature/container";
 import { SideBar } from "../../components/feature/sideBar";
@@ -8,6 +8,7 @@ import { Tabs } from "../../components/feature/tabs";
 import { TabItem } from "../../components/feature/tabs/types";
 import { MyPosts } from "../../components/feature/myPosts";
 import { NewPost } from "../../components/feature/newPost";
+import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
 
 import styles from "./styles.module.css";
 
@@ -18,7 +19,7 @@ const tabData: TabItem[] = [
     label: "Իմ հայտարարությունները",
   },
   {
-    content: <NewPost/>,
+    content: <NewPost />,
     key: "post",
     label: "Տեղադրել հայտարարություն",
   },
@@ -30,9 +31,15 @@ const tabData: TabItem[] = [
 ];
 
 export const AccountPage: React.FC = () => {
+  const { user } = useCheckAuth();
+
   return (
     <Box className={styles.box}>
-      <SideBar items={[<UserBlock username="Saqo" />]} />
+      <SideBar
+        items={[
+          <UserBlock username={`${user?.firstName} ${user?.lastName}`} />,
+        ]}
+      />
       <Header text="Իմ պրոֆիլը" />
       <Container className={styles.container}>
         <Tabs tabClassName={styles.tab} tabsData={tabData} />

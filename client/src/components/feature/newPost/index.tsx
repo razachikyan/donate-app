@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Box, FormControl } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import { Buffer } from "buffer";
@@ -9,11 +9,20 @@ import { Textarea } from "../../shared/textarea";
 import { Select } from "../../shared/select";
 import { Button } from "../button";
 import { usePostItem } from "../../../hooks/items/usePostItem";
+import { useCheckAuth } from "../../../hooks/auth/useCheckAuth";
+import { Input } from "../../shared/input";
 
 import styles from "./styles.module.css";
 
 export const NewPost: React.FC = () => {
   const { data: categories = [] } = useGetCategories();
+  const { user } = useCheckAuth();
+
+  useEffect(() => {
+    if (user) {
+      handleFormChange("donor_id", user.user_id);
+    }
+  }, [user]);
 
   const {
     formData,
@@ -23,45 +32,39 @@ export const NewPost: React.FC = () => {
     handleFormSubmit,
   } = usePostItem();
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      if (acceptedFiles.length > 0) {
-        uploadFileToImageKit(acceptedFiles[0]);
-      }
-    },
-    []
-  );
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      uploadFileToImageKit(acceptedFiles[0]);
+    }
+  }, []);
 
-   const uploadFileToImageKit = async (file: File) => {
-     const formData = new FormData();
-     formData.append("file", file);
-     formData.append("fileName", file.name);
-     formData.append("useUniqueFileName", "true");
+  const uploadFileToImageKit = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", file.name);
+    formData.append("useUniqueFileName", "true");
 
-     try {
-       const accessToken = Buffer.from(
-         `${process.env.REACT_APP_IMAGEKIT_PRIVATE_KEY}:`
-       ).toString("base64");
-       console.log(accessToken);
-       
-       const response = await axios.post(
-         "https://upload.imagekit.io/api/v2/files/upload",
-         formData,
-         {
-           headers: {
-             Accept: "application/json",
-             Authorization: `Basic ${accessToken}`,
-             "Content-Type": "multipart/form-data",
-           },
-         }
-       );
-       handleFormChange("image_url", response.data.url);
-     } catch (error) {
-       console.error("Error uploading file:", error);
-     }
-   };
+    try {
+      const accessToken = Buffer.from(
+        `${process.env.REACT_APP_IMAGEKIT_PRIVATE_KEY}:`
+      ).toString("base64");
+      const response = await axios.post(
+        "https://upload.imagekit.io/api/v2/files/upload",
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Basic ${accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      handleFormChange("image_url", response.data.url);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
 
-  
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: { "image/*": [] },
@@ -96,6 +99,11 @@ export const NewPost: React.FC = () => {
           ]}
         />
         <FormControl className={styles.textarea}>
+          <span className={styles.label}>Վերնագիր</span>
+          <Input
+            value={formData.title}
+            onChange={(ev) => handleFormChange("title", ev.target.value)}
+          />
           <span className={styles.label}>Մանրամասն տեղեկություն</span>
           <Textarea
             value={formData.description}
