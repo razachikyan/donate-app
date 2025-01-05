@@ -21,7 +21,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:4000",
+        url: process.env.BASE_URL,
       },
     ],
   },
@@ -33,7 +33,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CLIENT_URL,
   credentials: true,
 };
 
