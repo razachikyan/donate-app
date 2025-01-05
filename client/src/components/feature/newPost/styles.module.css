@@ -35,3 +35,10 @@
     font-weight: 500;
   }
 }
+
+.drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}

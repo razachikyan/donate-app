@@ -6,11 +6,13 @@ export interface IItemDTO {
   status: string;
   donor_id: string;
   image_url: string;
+  address: string
 }
 
 export interface IItemResponse {
   item_id: string;
   title: string;
+  address: string
   description: string;
   category: string;
   condition: string;

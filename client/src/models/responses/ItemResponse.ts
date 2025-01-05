@@ -5,6 +5,7 @@ export interface IItemResponse {
   category: string;
   condition: string;
   status: string;
+  address: string;
   donor_id: string;
   recipient_id: string | null;
   image_url: string;

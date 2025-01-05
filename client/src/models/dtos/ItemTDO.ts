@@ -4,6 +4,7 @@ export class ItemDTO extends BaseDTO {
   constructor(
     public title: string,
     public description: string,
+    public address: string,
     public category: string,
     public condition: string,
     public status: string,
