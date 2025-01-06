@@ -69,6 +69,9 @@ class ItemsController {
   }
   async createItem(req: Request, res: Response) {
     try {
+      const item = req.body;
+      const created = itemsServices.createItem(item)
+      res.status(201).json(created)
     } catch (err: any) {
       console.error(err);
       res

@@ -49,10 +49,10 @@ class AuthService {
 
   async isAuthorized(): Promise<AuthResponse | null> {
     try {
-      const response = await axiosClient.get<AuthResponse>(
+      const response = await axiosClient.get<{ user: AuthResponse }>(
         "/auth/is-authorized"
       );
-      return response.data;
+      return response.data.user;
     } catch (error) {
       console.error("Error in authService.isAuthorized:", error);
       return null;

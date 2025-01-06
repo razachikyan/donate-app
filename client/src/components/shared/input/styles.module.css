@@ -1,0 +1,14 @@
+.input {
+  border: 2px solid #fff;
+  border-radius: 30px;
+  background-color: transparent;
+  padding: 20px;
+
+  &,
+  &::placeholder {
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+  }
+}
