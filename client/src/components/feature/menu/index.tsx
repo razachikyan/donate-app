@@ -6,6 +6,7 @@ import { Categories } from "./Categories";
 import { Tabs } from "../tabs";
 
 import styles from "./styles.module.css";
+import { Search } from "./feedback/search";
 
 const tabData = [
   {
@@ -18,7 +19,7 @@ const tabData = [
     content: <Categories />,
     key: "categories",
   },
-  { label: "Որոնում", content: "Որոնում բովանդակություն", key: "search" },
+  { label: "Որոնում", content: <Search />, key: "search" },
   {
     label: "Հետադարձ կապ",
     content: <FeedBack />,

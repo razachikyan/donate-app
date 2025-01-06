@@ -1,4 +1,15 @@
+.box {
+  background: #000;
+}
+
 .container {
   align-items: center;
   justify-content: center;
+}
+
+.list {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  width: 100%;
 }

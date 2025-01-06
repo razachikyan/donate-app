@@ -4,4 +4,5 @@ export interface IInputProps {
   className?: string;
   placeholder?: string;
   disabled?: boolean;
+  icon?: string;
 }

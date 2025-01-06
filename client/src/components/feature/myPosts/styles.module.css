@@ -22,3 +22,9 @@
   margin-left: auto;
   opacity: 1;
 }
+
+.list {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}

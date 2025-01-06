@@ -1,0 +1,24 @@
+.container {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  padding: 15px 95px !important;
+
+  &,
+  &::placeholder {
+    font-family: Arial !important;
+    font-weight: 400 !important;
+    font-size: 30px !important;
+  }
+
+  & {
+    color: #fff !important;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+  }
+}

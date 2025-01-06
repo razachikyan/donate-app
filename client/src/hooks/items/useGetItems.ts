@@ -47,7 +47,7 @@ export const useGetItems = (
           default:
             throw new Error("Invalid type provided to useGetItems.");
         }
-
+        
         setData(response);
       } catch (error: any) {
         setError(error?.response?.data?.error ?? error.message);

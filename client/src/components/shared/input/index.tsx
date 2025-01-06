@@ -10,14 +10,26 @@ export const Input: React.FC<IInputProps> = ({
   disabled = false,
   onChange,
   value,
+  icon,
 }) => {
   return (
-    <input
-      value={value}
-      onChange={onChange}
-      disabled={disabled}
-      placeholder={placeholder}
-      className={cx(styles.input, className)}
-    />
+    <div className={styles.container}>
+      <input
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        placeholder={placeholder}
+        className={cx(styles.input, className)}
+      />
+      {icon && (
+        <img
+          className={styles.icon}
+          src={icon}
+          alt="icon"
+          width={35}
+          height={35}
+        />
+      )}
+    </div>
   );
 };
