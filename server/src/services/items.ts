@@ -2,6 +2,7 @@ import DB from "../db";
 import { IItemDTO, IItemResponse } from "../models/item";
 import { v4 as uuidv4 } from "uuid";
 import "dotenv/config";
+import { ICategoryResponse } from "../models/category";
 
 class ItemsService {
   public constructor() {}
@@ -19,9 +20,13 @@ class ItemsService {
   }
 
   async getItemsByCategory(categoryId: string) {
+    const category = await DB<ICategoryResponse>("categories")
+      .select("*")
+      .where({ category_id: categoryId })
+      .first();
     const items = await DB<IItemResponse>("items")
       .select("*")
-      .where({ category: categoryId });
+      .where({ category: category?.name });
     return items;
   }
 
