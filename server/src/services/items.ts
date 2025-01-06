@@ -1,5 +1,6 @@
 import DB from "../db";
 import { IItemDTO, IItemResponse } from "../models/item";
+import { v4 as uuidv4 } from "uuid";
 import "dotenv/config";
 
 class ItemsService {
@@ -33,16 +34,20 @@ class ItemsService {
     return item;
   }
 
-  async createItem(item: IItemDTO) {
+  async createItem(item: IItemDTO): Promise<IItemResponse> {
+    if (!item.title || !item.description || !item.category || !item.condition) {
+      throw new Error("Required fields are missing");
+    }
+
     const [createdItem] = await DB<IItemResponse>("items")
       .insert({
         ...item,
         recipient_id: null,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
+        item_id: uuidv4(),
       })
       .returning("*");
-
     return createdItem;
   }
 }
