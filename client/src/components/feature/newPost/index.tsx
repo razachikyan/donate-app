@@ -94,8 +94,8 @@ export const NewPost: React.FC = () => {
           value={formData.condition}
           onChange={(ev) => handleFormChange("condition", ev.target.value)}
           options={[
-            { label: "Նոր", value: "Նոր" },
-            { label: "Օգտագործված", value: "Օգտագործված" },
+            { label: "Նոր", value: "new" },
+            { label: "Օգտագործված", value: "used" },
           ]}
         />
         <FormControl className={styles.textarea}>

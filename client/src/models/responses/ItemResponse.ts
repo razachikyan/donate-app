@@ -3,8 +3,8 @@ export interface IItemResponse {
   title: string;
   description: string;
   category: string;
-  condition: string;
-  status: string;
+  condition: "new" | "good" | "used";
+  status: "available" | "reserved" | "donated";;
   address: string;
   donor_id: string;
   recipient_id: string | null;

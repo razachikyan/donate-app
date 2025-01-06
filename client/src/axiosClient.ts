@@ -64,5 +64,5 @@ class AxiosClient {
     }
   }
 }
-
-export default new AxiosClient();
+const instance = new AxiosClient();
+export default instance;

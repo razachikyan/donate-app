@@ -8,8 +8,8 @@ export const usePostItem = () => {
     title: "",
     description: "",
     category: "",
-    condition: "",
-    status: "",
+    condition: "new",
+    status: "available",
     donor_id: "",
     image_url: "",
     address: ""
@@ -33,8 +33,8 @@ export const usePostItem = () => {
           title: "",
           description: "",
           category: "",
-          condition: "",
-          status: "",
+          condition: "new",
+          status: "available",
           donor_id: "",
           image_url: "",
           address: ''

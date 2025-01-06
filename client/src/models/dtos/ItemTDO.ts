@@ -6,8 +6,8 @@ export class ItemDTO extends BaseDTO {
     public description: string,
     public address: string,
     public category: string,
-    public condition: string,
-    public status: string,
+    public condition: "new" | "good" | "used",
+    public status: "available" | "reserved" | "donated";,
     public donor_id: string,
     public image_url: string
   ) {
