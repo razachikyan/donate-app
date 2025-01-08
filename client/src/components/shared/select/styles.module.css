@@ -1,4 +1,9 @@
 .container {
+  min-width: 200px !important;
+  &.fullWidth {
+    width: 100%;
+  }
+
   .label {
     font-family: Arial;
     font-weight: 400;
@@ -25,11 +30,11 @@
 }
 
 .arrow {
-    transition: transform .3s;
+  transition: transform 0.3s;
   transform: rotate(0deg);
 }
-.option{
-  color:#fff !important;
+.option {
+  color: #fff !important;
 }
 
 .select {

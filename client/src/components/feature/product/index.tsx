@@ -10,10 +10,10 @@ export const Product: React.FC<IProductProps> = ({ data, className }) => {
   const hasMore = data.description.length > 30;
   const [showing, setShowing] = useState<boolean>(false);
   return (
-    <a href={`/products/${data.item_id}`} className={cx(className, styles.container)}>
+    <Box className={cx(className, styles.container)}>
       <IKImage src={data.image_url} alt={data.title} className={styles.image} />
       <Box className={styles.info}>
-        <h4 className={styles.title}>{data.title}</h4>
+        <a href={`/products/${data.item_id}`} className={styles.title}>{data.title}</a>
         <p className={styles.descr}>
           {showing ? data.description : (data.description.slice(0, 30) + "...")}
         </p>
@@ -26,6 +26,6 @@ export const Product: React.FC<IProductProps> = ({ data, className }) => {
           </button>
         )}
       </Box>
-    </a>
+    </Box>
   );
 };

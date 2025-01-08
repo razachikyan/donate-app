@@ -3,13 +3,34 @@
 }
 
 .container {
-  align-items: center;
+  padding-top: 200px;
   justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.controls {
+  margin-bottom: 40px;
+  width: 400px;
 }
 
 .list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  flex-wrap: wrap;
   width: 100%;
+}
+
+.activeFilters {
+  margin-top: 20px !important;
+  display: flex !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.filterChip {
+  background-color: #3f51b5 !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
 }

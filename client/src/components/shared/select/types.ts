@@ -5,4 +5,5 @@ export interface ISelectProps {
   label: string;
   value?: string;
   onChange?: (ev: SelectChangeEvent<string>) => void;
+  fullWidth?: boolean;
 }

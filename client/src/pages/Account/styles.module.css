@@ -1,13 +1,24 @@
 .box {
-    padding-left: 400px;
-    background-color: #000;
+  padding-left: 400px;
+  background-color: #000;
 }
 .container {
-    padding-top: 150px;
-    padding-inline: 30px;
+  padding-top: 150px;
+  padding-inline: 30px;
+}
+
+.header {
+  padding-left: 400px;
 }
 
 .tab {
-    padding-top: 20px;
-    min-height: 600px;
+  padding-top: 20px;
+  min-height: 600px;
+}
+
+.logout {
+  font-family: Arial;
+  font-size: 30px;
+  color: darkred;
+  font-weight: 600;
 }

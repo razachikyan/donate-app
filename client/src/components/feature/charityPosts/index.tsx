@@ -1,14 +1,14 @@
 import React from "react";
 import { Box } from "@mui/material";
 import cx from "classnames";
-
-import styles from "./styles.module.css";
 import { useGetItems } from "../../../hooks/items/useGetItems";
 import { useCheckAuth } from "../../../hooks/auth/useCheckAuth";
 import Loading from "../loading";
 import { Product } from "../product";
 
-export const MyPosts: React.FC = () => {
+import styles from "./styles.module.css";
+
+export const CharityPosts: React.FC = () => {
   const { user, loading } = useCheckAuth();
   const { data = [], pending } = useGetItems("user", user?.user_id ?? "");
   return (
@@ -20,16 +20,9 @@ export const MyPosts: React.FC = () => {
           <Loading />
         ) : (
           <>
-            {data
-              .filter((item) => {
-                const limit = new Date();
-                limit.setDate(limit.getDate() - 5);
-
-                return new Date(item.created_at).getTime() > limit.getTime();
-              })
-              .map((item, i) => (
-                <Product key={i} data={item} />
-              ))}
+            {data.map((item, i) => (
+              <Product key={i} data={item} />
+            ))}
           </>
         )}
         {data.length === 0 && (

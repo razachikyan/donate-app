@@ -8,7 +8,12 @@ export const SideBar: React.FC<ISideBar> = ({ items }) => {
   return (
     <Box className={styles.container}>
       {items.map((item, i) => {
-        if (item && typeof item === "object" && "name" in item && "link" in item) {
+        if (
+          item &&
+          typeof item === "object" &&
+          "name" in item &&
+          "link" in item
+        ) {
           return (
             <Box key={i} className={styles.item}>
               <Link className={styles.link} href={item.link}>

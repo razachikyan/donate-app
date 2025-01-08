@@ -13,11 +13,12 @@ import styles from "./styles.module.css";
 export const Select: React.FC<ISelectProps> = ({
   label,
   options,
-  onChange,
   value,
+  onChange,
+  fullWidth =  false
 }) => {
   return (
-    <FormControl className={styles.container}>
+    <FormControl className={cx(styles.container, {[styles.fullWidth]: fullWidth})}>
       <InputLabel className={styles.label}>{label}</InputLabel>
       <MUISelect
         value={value}

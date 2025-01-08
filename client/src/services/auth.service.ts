@@ -79,6 +79,15 @@ class AuthService {
       throw error;
     }
   }
+
+  public async logout() {
+    try {
+      await axiosClient.post<{}, void>("/auth/logout", {});
+    } catch (error) {
+      console.error("Error while logging out:", error);
+      throw error;
+    }
+  }
 }
 
 export default new AuthService();

@@ -11,6 +11,8 @@ import { NewPost } from "../../components/feature/newPost";
 import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
 
 import styles from "./styles.module.css";
+import { CharityPosts } from "../../components/feature/charityPosts";
+import authService from "../../services/auth.service";
 
 const tabData: TabItem[] = [
   {
@@ -24,7 +26,7 @@ const tabData: TabItem[] = [
     label: "Տեղադրել հայտարարություն",
   },
   {
-    content: "",
+    content: <CharityPosts />,
     key: "charity",
     label: "Բարեգործություն",
   },
@@ -38,9 +40,18 @@ export const AccountPage: React.FC = () => {
       <SideBar
         items={[
           <UserBlock username={`${user?.firstName} ${user?.lastName}`} />,
+          <button
+            onClick={() => {
+              localStorage.removeItem('accessToken')
+              authService.logout();
+            }}
+            className={styles.logout}
+          >
+            Դուրս գալ
+          </button>,
         ]}
       />
-      <Header text="Իմ պրոֆիլը" />
+      <Header className={styles.header} text="Իմ պրոֆիլը" />
       <Container className={styles.container}>
         <Tabs tabClassName={styles.tab} tabsData={tabData} />
       </Container>

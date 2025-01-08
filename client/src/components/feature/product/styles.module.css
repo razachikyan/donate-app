@@ -1,7 +1,9 @@
 .container {
-  width: calc(100% / 3 - 30px);
+  width: 100%;
   padding: 15px;
   border: 1px solid #767676;
+  min-height: 550px;
+  max-height: 700px;
 }
 
 .image {
@@ -13,6 +15,7 @@
 .info {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .title {
@@ -21,6 +24,10 @@
   color: #ffffff;
   font-weight: 600;
   margin-bottom: 40px;
+  transition: color 0.2s;
+  &:hover {
+    color: #e08760;
+  }
 }
 
 .descr {
@@ -29,6 +36,8 @@
   color: #ffffff;
   font-weight: 600;
   margin-bottom: 10px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .button {
@@ -45,7 +54,7 @@
     color: #e08760;
     border-color: #e08760;
   }
-  
+
   &:active {
     background-color: #e08760;
     border-color: #000;

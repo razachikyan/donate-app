@@ -5,7 +5,8 @@ import { AboutUs } from "./pages/about-us";
 import { Auth } from "./pages/auth/page";
 import { Verify } from "./pages/verify/page";
 import { Charity } from "./pages/charity/page";
-import { AccountPage } from "./pages/Account/page";
+import { AccountPage } from "./pages/account/page";
+import { ProductPage } from "./pages/product/page";
 
 export const router = createBrowserRouter(
   [
@@ -19,7 +20,12 @@ export const router = createBrowserRouter(
     },
     {
       path: "/about-us",
-      element: <AboutUs />,
+      element: (
+        <Layout>
+          {" "}
+          <AboutUs />{" "}
+        </Layout>
+      ),
     },
     {
       path: "/auth",
@@ -31,11 +37,27 @@ export const router = createBrowserRouter(
     },
     {
       path: "/charity",
-      element: <Charity />,
+      element: (
+        <Layout>
+          <Charity />
+        </Layout>
+      ),
     },
     {
       path: "/me",
-      element: <AccountPage />,
+      element: (
+        <Layout>
+          <AccountPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/products/:id",
+      element: (
+        <Layout>
+          <ProductPage />
+        </Layout>
+      ),
     },
   ],
   {

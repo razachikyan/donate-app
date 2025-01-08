@@ -163,7 +163,7 @@ class AuthServices {
   public async isAuthorized(
     accessToken: string,
     refreshToken: string | null
-  ): Promise<IUserResponse & {accessToken? : string} | null> {
+  ): Promise<(IUserResponse & { accessToken?: string }) | null> {
     try {
       let payload;
       try {
