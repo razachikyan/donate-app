@@ -4,6 +4,7 @@ export interface ICompanyResponse {
   email: string;
   password: string;
 }
+
 export interface ICompanyDTO {
   name: string;
   email: string;

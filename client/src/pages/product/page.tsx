@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../components/feature/loading";
 
 import styles from "./styles.module.css";
+import { Header } from "../../components/feature/prifileHeader";
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export const ProductPage = () => {
 
   return (
     <Box className={styles.box}>
+      <Header text={product?.title}/>
       <Container maxWidth="xl" className={styles.container}>
         {pending ? (
           <Loading />
