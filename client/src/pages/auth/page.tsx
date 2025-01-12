@@ -142,7 +142,10 @@ export const Auth = () => {
             ))}
           </Box>
         </Box>
-        <AuthForm form={value === 0 ? "signin" : "signup"} />
+        <AuthForm
+          form={value === 0 ? "signin" : "signup"}
+          userType={value2 === 0 ? "user" : "company"}
+        />
       </Container>
     </Box>
   );

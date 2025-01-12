@@ -44,6 +44,7 @@ export const AccountPage: React.FC = () => {
             onClick={() => {
               localStorage.removeItem('accessToken')
               authService.logout();
+              window.location.reload()
             }}
             className={styles.logout}
           >

@@ -8,7 +8,12 @@ import { useSignup } from "../../../hooks/auth/useSignup";
 
 import styles from "./styles.module.css";
 
-export const AuthForm: React.FC<{ form: "signin" | "signup" }> = ({ form }) => {
+interface IFormProps {
+  form: "signin" | "signup";
+  userType: 'user' | 'company'
+} 
+
+export const AuthForm: React.FC<IFormProps> = ({ form, userType }) => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const {
