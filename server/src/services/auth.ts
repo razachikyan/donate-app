@@ -176,7 +176,6 @@ class AuthServices {
             refreshToken,
             "refresh"
           ) as { userId: string };
-
           if (refreshPayload) {
             const newAccessToken = JwtUtils.generateAccessToken({
               userId: refreshPayload.userId,
@@ -185,7 +184,6 @@ class AuthServices {
             const user = await DB<IUserResponse>("users")
               .where({ user_id: refreshPayload.userId })
               .first();
-
             if (user) return { ...user, accessToken: newAccessToken };
           }
         }

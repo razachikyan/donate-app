@@ -10,7 +10,8 @@ import { Product } from "../product";
 
 export const MyPosts: React.FC = () => {
   const { user, loading } = useCheckAuth();
-  const { data = [], pending } = useGetItems("user", user?.user_id ?? "");
+  const id = user && 'user_id' in user ? user.user_id : user?.company_id
+  const { data = [], pending } = useGetItems("user", id ?? "");
   return (
     <Box
       className={cx(styles.container, { [styles.empty]: data.length === 0 })}

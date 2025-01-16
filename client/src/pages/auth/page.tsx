@@ -28,7 +28,7 @@ const tabData = [
 const tabData2 = [
   {
     label: "անհատ",
-    key: "login",
+    key: "personal",
     content: <Box>Մուտք գործել բովանդակություն</Box>,
   },
   {
@@ -38,21 +38,21 @@ const tabData2 = [
   },
   {
     label: "կազմակերպություն",
-    key: "signup",
+    key: "company",
     content: <Box>Գրանցվել բովանդակություն</Box>,
   },
 ];
 
 export const Auth = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialTabKey = searchParams.get("tab");
+  const initialTabKey = searchParams.get("form");
   const initialTabIndex = tabData.findIndex((tab) => tab.key === initialTabKey);
 
   const [value, setValue] = useState(
     initialTabIndex !== -1 ? initialTabIndex : 0
   );
 
-  const initialTabKey2 = searchParams.get("tab2");
+  const initialTabKey2 = searchParams.get("type");
   const initialTabIndex2 = tabData2.findIndex(
     (tab) => tab.key === initialTabKey2
   );
@@ -64,7 +64,7 @@ export const Auth = () => {
   useEffect(() => {
     const tabKey = tabData[value]?.key;
     if (tabKey) {
-      setSearchParams({ tab: tabKey });
+      setSearchParams({ form: tabKey });
     }
   }, [value, setSearchParams]);
 
@@ -73,7 +73,7 @@ export const Auth = () => {
     if (tabKey2) {
       setSearchParams((prevParams) => {
         const newParams = new URLSearchParams(prevParams);
-        newParams.set("tab2", tabKey2);
+        newParams.set("type", tabKey2);
         return newParams;
       });
     }

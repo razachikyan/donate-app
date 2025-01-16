@@ -11,7 +11,6 @@ export const Layout = ({
   background = false,
 }: React.PropsWithChildren & { background?: boolean }) => {
   const { isAuthorized, loading } = useCheckAuth();
-
   return (
     <Box className={cx(styles.layout, { [styles.background]: background })}>
       {loading ? (

@@ -17,10 +17,11 @@ import styles from "./styles.module.css";
 export const NewPost: React.FC = () => {
   const { data: categories = [] } = useGetCategories();
   const { user } = useCheckAuth();
+  const id = user && "user_id" in user ? user.user_id : user?.company_id;
 
   useEffect(() => {
     if (user) {
-      handleFormChange("donor_id", user.user_id);
+      handleFormChange("donor_id", id ?? "");
     }
   }, [user]);
 

@@ -68,7 +68,7 @@ export const AuthForm: React.FC<IFormProps> = ({ form, userType }) => {
             isSignin ? companySignin.handleSubmit : companySignup.handleSubmit
           }
           formFields={companyFields[form].reduce((acc, name) => {
-            const formObj: any = isSignin ? signin : signup;
+            const formObj: any = isSignin ? companySignin : companySignup;
             acc[name] = {
               value: formObj.values[name],
               error: formObj.errors[name],

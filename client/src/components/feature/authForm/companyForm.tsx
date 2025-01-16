@@ -17,7 +17,7 @@ interface IFormProps {
     {
       value: string;
       error: string | null;
-      onChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+      handleChange: (ev: ChangeEvent<HTMLInputElement>) => void;
     }
   >;
 }
@@ -87,7 +87,7 @@ export const CompanyAuthForm: React.FC<IFormProps> = ({
         <Input
           key={i}
           value={formFields[name].value}
-          onChange={formFields[name].onChange}
+          onChange={formFields[name].handleChange}
           name={name}
           label={label}
           type={type}
