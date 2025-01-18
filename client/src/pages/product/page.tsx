@@ -3,7 +3,7 @@ import { useGetItems } from "../../hooks/items/useGetItems";
 import { Box, Container, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/feature/loading";
-import { Header } from "../../components/feature/prifileHeader";
+import { Header } from "../../components/feature/profileHeader";
 import { Button } from "../../components/feature/button";
 import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
 import itemsService from "../../services/items.service";

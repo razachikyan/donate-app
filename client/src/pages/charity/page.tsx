@@ -4,7 +4,7 @@ import { useGetItems } from "../../hooks/items/useGetItems";
 import { Box, Chip } from "@mui/material";
 import { Product } from "../../components/feature/product";
 import { Select } from "../../components/shared/select";
-import { Header } from "../../components/feature/prifileHeader";
+import { Header } from "../../components/feature/profileHeader";
 import { useGetCategories } from "../../hooks/categories/useGetCategories";
 import { useState, useEffect } from "react";
 

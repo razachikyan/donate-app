@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { Container } from "../../components/feature/container";
 import { SideBar } from "../../components/feature/sideBar";
 import { UserBlock } from "../../components/feature/userBlock";
-import { Header } from "../../components/feature/prifileHeader";
+import { Header } from "../../components/feature/profileHeader";
 import { Tabs } from "../../components/feature/tabs";
 import { TabItem } from "../../components/feature/tabs/types";
 import { MyPosts } from "../../components/feature/myPosts";
