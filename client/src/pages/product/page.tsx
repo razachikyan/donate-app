@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useGetItems } from "../../hooks/items/useGetItems";
-import { Box, Container, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { Box, Container, Typography } from "@mui/material";
+import { useGetItems } from "../../hooks/items/useGetItems";
+import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
+import itemsService from "../../services/items.service";
+import transactionsService from "../../services/transactions.service";
 import Loading from "../../components/feature/loading";
 import { Header } from "../../components/feature/profileHeader";
 import { Button } from "../../components/feature/button";
-import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
-import itemsService from "../../services/items.service";
-
 import styles from "./styles.module.css";
 
 export const ProductPage = () => {
@@ -20,15 +20,32 @@ export const ProductPage = () => {
   } = useGetItems("item", id);
 
   useEffect(() => {
-    const userId = user && "user_id" in user ? user.user_id : user?.company_id;
-    if (product?.donor_id !== userId) {
-      setCanRemove(true);
+    if (user && product) {
+      const userId = "user_id" in user ? user.user_id : user.company_id;
+      setCanRemove(product.donor_id !== userId);
     }
   }, [product, user]);
 
+  const handleRemoveItem = () => {
+    if (product?.item_id) {
+      itemsService.removeItem(product.item_id);
+    }
+  };
+
+  const handleCreateTransaction = () => {
+    if (product?.item_id && user) {
+      transactionsService.createTransaction({
+        donor_id: product.donor_id,
+        item_id: product.item_id,
+        recipient_id: user && 'user_id' in user ? user.user_id : user?.company_id,
+        status: "in_progress",
+      });
+    }
+  };
+
   return (
     <Box className={styles.box}>
-      <Header text={product?.title} />
+      <Header text={product?.title || "Product"} />
       <Container maxWidth="xl" className={styles.container}>
         {pending ? (
           <Loading />
@@ -37,7 +54,7 @@ export const ProductPage = () => {
             <Box className={styles.left}>
               <img
                 src={product?.image_url}
-                alt={product?.title}
+                alt={product?.title || "Product Image"}
                 width={800}
                 height={500}
               />
@@ -62,13 +79,16 @@ export const ProductPage = () => {
                 Address: {product?.address}
               </Typography>
               <Typography variant="caption" className={styles.date}>
-                Created At: {new Date(product?.created_at).toLocaleDateString()}
+                Created At:{" "}
+                {product?.created_at
+                  ? new Date(product.created_at).toLocaleDateString()
+                  : "N/A"}
               </Typography>
-              {canRemove && (
-                <Button
-                  onClick={() => itemsService.removeItem(product.item_id)}
-                >
-                  Ջնջել
+              {canRemove ? (
+                <Button onClick={handleRemoveItem}>Ջնջել</Button>
+              ) : (
+                <Button onClick={handleCreateTransaction}>
+                  Կատարել հարցում
                 </Button>
               )}
             </Box>

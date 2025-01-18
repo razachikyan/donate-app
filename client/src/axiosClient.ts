@@ -75,6 +75,23 @@ class AxiosClient {
       throw error;
     }
   }
+
+  public async put<T, R>(
+    url: string,
+    data: T,
+    config?: AxiosRequestConfig
+  ): Promise<ApiResponse<R>> {
+    try {
+      const response: AxiosResponse<R> = await this.client.put(
+        url,
+        data,
+        config
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  } 
 }
 const instance = new AxiosClient();
 export default instance;

@@ -14,6 +14,7 @@ import authService from "../../services/auth.service";
 import companyService from "../../services/company.service";
 
 import styles from "./styles.module.css";
+import { Notifications } from "../../components/feature/notifications";
 
 const tabData: TabItem[] = [
   {
@@ -30,6 +31,11 @@ const tabData: TabItem[] = [
     content: <CharityPosts />,
     key: "charity",
     label: "Բարեգործություն",
+  },
+  {
+    content: <Notifications />,
+    key: "notifications",
+    label: "Նամակներ",
   },
 ];
 

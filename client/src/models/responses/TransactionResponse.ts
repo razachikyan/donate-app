@@ -1,10 +1,3 @@
-export interface ITransactionDTO {
-  item_id: string;
-  donor_id: string;
-  recipient_id: string;
-  status: "in_progress" | "completed" | "cancelled";
-}
-
 export interface ITransactionResponse {
   transaction_id: string;
   item_id: string;

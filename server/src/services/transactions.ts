@@ -11,7 +11,7 @@ class CategoriesService {
       .where({ item_id: DTO.item_id });
     if (
       items?.some(
-        (item) => item.item_id === DTO.item_id && item.status === "accepted"
+        (item) => item.item_id === DTO.item_id && item.status === "completed"
       )
     ) {
       throw new Error("Item already donated");
@@ -20,7 +20,7 @@ class CategoriesService {
       .insert({
         ...DTO,
         created_at: new Date().toISOString(),
-        status: "pending",
+        status: "in_progress",
         updated_at: new Date().toISOString(),
         transaction_id: uuidv4(),
       })
@@ -69,17 +69,17 @@ class CategoriesService {
       .where({ transaction_id: transactionId })
       .del();
     if (removed !== 1) throw new Error("Failed to remove transaction");
-    }
-    
-    public async updateTransactionStatus(
-      transactionId: string,
-      status: string
-    ): Promise<void> {
-      const updated = await DB("transactions")
-        .where({ transaction_id: transactionId })
-        .update({ status });
-      if (updated !== 1) throw new Error("Failed to update transaction status");
-    }
+  }
+
+  public async updateTransactionStatus(
+    transactionId: string,
+    status: string
+  ): Promise<void> {
+    const updated = await DB("transactions")
+      .where({ transaction_id: transactionId })
+      .update({ status });
+    if (updated !== 1) throw new Error("Failed to update transaction status");
+  }
 }
 
 export default new CategoriesService();
