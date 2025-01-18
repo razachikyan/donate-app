@@ -70,7 +70,8 @@ class ItemsController {
   async createItem(req: Request, res: Response) {
     try {
       const item = req.body;
-      const created = await itemsServices.createItem(item);
+      const { type = 'user' } = req.query
+      const created = await itemsServices.createItem(item, String(type));
       res.status(201).json(created);
     } catch (err: any) {
       console.error(err);

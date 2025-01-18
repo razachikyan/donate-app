@@ -46,10 +46,13 @@ class ItemsService {
     }
   }
 
-  public async createItem(DTO: ItemDTO): Promise<IItemResponse | null> {
+  public async createItem(
+    DTO: ItemDTO,
+    type: "user" | "company"
+  ): Promise<IItemResponse | null> {
     try {
       const response = await axiosClient.post<ItemDTO, IItemResponse>(
-        "/items",
+        `/items?type=${type}`,
         DTO
       );
       return response.data;

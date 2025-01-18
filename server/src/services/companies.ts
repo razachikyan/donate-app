@@ -28,7 +28,6 @@ class CompanyAuthServices {
       companyId: newCompany.company_id,
     });
 
-    // Store the refresh token in the company_refresh_tokens table
     await DB("company_refresh_tokens").insert({
       company_id: newCompany.company_id,
       token: refreshToken,
@@ -55,7 +54,6 @@ class CompanyAuthServices {
       companyId: company.company_id,
     });
 
-    // Store the refresh token in the company_refresh_tokens table
     await DB("company_refresh_tokens").insert({
       company_id: company.company_id,
       token: refreshToken,
@@ -68,34 +66,44 @@ class CompanyAuthServices {
     await DB("company_refresh_tokens").where({ token: refreshToken }).del();
   }
 
-  async isAuthorized(
-    accessToken: string | undefined,
+  public async isAuthorized(
+    accessToken: string,
     refreshToken: string | null
-  ): Promise<ICompanyResponse | null> {
+  ): Promise<(ICompanyResponse & { accessToken?: string }) | null> {
     try {
-      if (!accessToken) throw new Error("No access token");
-      const payload = JwtUtils.verifyToken(accessToken, "access") as {
-        companyId: string;
-      };
+      let payload;
+      try {
+        payload = JwtUtils.verifyToken(accessToken, "access") as {
+          companyId: string;
+        };
+      } catch (error) {
+        if (refreshToken) {
+          const refreshPayload = JwtUtils.verifyToken(
+            refreshToken,
+            "refresh"
+          ) as {
+            companyId: string;
+          };
+
+          if (refreshPayload) {
+            const newAccessToken = JwtUtils.generateAccessToken({
+              companyId: refreshPayload.companyId,
+            });
+            
+            const company = await DB<ICompanyResponse>("companies")
+              .where({ company_id: refreshPayload.companyId })
+              .first();
+            if (company) return { ...company, accessToken: newAccessToken };
+          }
+        }
+        return null;
+      }
       const company = await DB<ICompanyResponse>("companies")
         .where({ company_id: payload.companyId })
         .first();
-      if (!company) throw new Error("No company found");
-
-      return company;
-    } catch {
-      if (refreshToken) {
-        const payload = JwtUtils.verifyToken(refreshToken, "refresh") as {
-          companyId: string;
-        };
-        const newAccessToken = JwtUtils.generateAccessToken({
-          companyId: payload.companyId,
-        });
-        const company = await DB<ICompanyResponse>("companies")
-          .where({ company_id: payload.companyId })
-          .first();
-        return { ...company, accessToken: newAccessToken } as ICompanyResponse;
-      }
+      return company || null;
+    } catch (error) {
+      console.error("Authorization check failed:", error);
       return null;
     }
   }

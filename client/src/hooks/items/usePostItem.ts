@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ItemDTO } from "../../models/dtos/ItemTDO";
 import { IItemResponse } from "../../models/responses/ItemResponse";
 import ItemsService from "../../services/items.service";
+import { useCheckAuth } from "../auth/useCheckAuth";
 
 export const usePostItem = () => {
   const [formData, setFormData] = useState<ItemDTO>({
@@ -12,10 +13,11 @@ export const usePostItem = () => {
     status: "available",
     donor_id: "",
     image_url: "",
-    address: ""
+    address: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useCheckAuth();
 
   const handleFormChange = (field: keyof ItemDTO, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -26,7 +28,8 @@ export const usePostItem = () => {
     setError(null);
     try {
       const response: IItemResponse | null = await ItemsService.createItem(
-        formData
+        formData,
+        user && "company_id" in user ? "company" : "user"
       );
       if (response) {
         setFormData({
@@ -37,7 +40,7 @@ export const usePostItem = () => {
           status: "available",
           donor_id: "",
           image_url: "",
-          address: ''
+          address: "",
         });
       }
     } catch (err: any) {

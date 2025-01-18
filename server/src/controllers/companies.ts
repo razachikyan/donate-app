@@ -61,8 +61,9 @@ class CompanyAuthController {
 
   async isAuthorized(req: Request, res: Response) {
     try {
-      const accessToken = req.headers.authorization?.split(" ")[1];
+      const accessToken = req.headers.authorization?.split(" ")[1] ?? '';
       const refreshToken = req.cookies["refreshToken"];
+      if (!accessToken) throw new Error("Access token is required");
       const company = await companyAuthServices.isAuthorized(
         accessToken,
         refreshToken

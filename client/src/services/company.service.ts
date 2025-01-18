@@ -27,17 +27,21 @@ class CompanyService {
     name: string,
     email: string,
     password: string
-  ): Promise<CompanyResponse> {
+  ): Promise<string> {
     try {
-      const response = await axiosClient.post<
-        CompanySignupDTO,
-        CompanyResponse
-      >("/auth/company/signup", {
-        name,
-        email,
-        password,
-      });
-      return response.data;
+      const {
+        data: { accessToken },
+      } = await axiosClient.post<CompanySignupDTO, { accessToken: string }>(
+        "/auth/company/signup",
+        {
+          name,
+          email,
+          password,
+        }
+      );
+      localStorage.setItem("accessToken", accessToken);
+
+      return accessToken;
     } catch (error) {
       console.error("Error signing up:", error);
       throw error;
@@ -46,10 +50,10 @@ class CompanyService {
 
   async isAuthorized(): Promise<CompanyResponse | null> {
     try {
-      const response = await axiosClient.get<CompanyResponse>(
+      const response = await axiosClient.get<{company: CompanyResponse}>(
         "/auth/company/is-authorized"
       );
-      return response.data;
+      return response.data.company;
     } catch (error) {
       console.error("Error in authService.isAuthorized:", error);
       return null;
