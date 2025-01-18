@@ -67,10 +67,28 @@ class ItemsController {
         .json({ message: `Error while getting item:: ${err.message}` });
     }
   }
+
+  async removeItem(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        res.status(400).json({ message: "Empty item ID" });
+        return;
+      }
+      await itemsServices.removeItem(id);
+      res.status(200).json({ message: "Item removed successfully" });
+    } catch (err: any) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ message: `Error while getting item:: ${err.message}` });
+    }
+  }
+
   async createItem(req: Request, res: Response) {
     try {
       const item = req.body;
-      const { type = 'user' } = req.query
+      const { type = "user" } = req.query;
       const created = await itemsServices.createItem(item, String(type));
       res.status(201).json(created);
     } catch (err: any) {

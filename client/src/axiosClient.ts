@@ -47,6 +47,18 @@ class AxiosClient {
     }
   }
 
+  public async delete<T>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<ApiResponse<T>> {
+    try {
+      const response: AxiosResponse<T> = await this.client.delete(url, config);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
   public async post<T, R>(
     url: string,
     data: T,

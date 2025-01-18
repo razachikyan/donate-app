@@ -46,6 +46,14 @@ class ItemsService {
     }
   }
 
+  public async removeItem(id: string): Promise<void> {
+    try {
+      const response = await axiosClient.delete(`/items/${id}`);
+    } catch (err: any) {
+      console.error("Error while getting item::", err.message);
+    }
+  }
+
   public async createItem(
     DTO: ItemDTO,
     type: "user" | "company"

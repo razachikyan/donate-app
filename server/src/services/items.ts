@@ -39,6 +39,17 @@ class ItemsService {
     return item;
   }
 
+  async removeItem(itemId: string) {
+    const item = await DB<IItemResponse>("items")
+      .select("*")
+      .where({ item_id: itemId })
+      .del();
+    
+    if (item !== 1) throw new Error("Failed to remove item");
+
+    return item;
+  }
+
   async createItem(item: IItemDTO, type: string): Promise<IItemResponse> {
     console.log(item, type);
     
