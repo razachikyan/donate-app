@@ -9,11 +9,13 @@ export const Input: React.FC<IInputProps> = ({
   className,
   disabled = false,
   onChange,
+  onIconClick,
+  wrapperClassName,
   value,
   icon,
 }) => {
   return (
-    <div className={styles.container}>
+    <div className={cx(styles.container, wrapperClassName)}>
       <input
         value={value}
         onChange={onChange}
@@ -23,6 +25,7 @@ export const Input: React.FC<IInputProps> = ({
       />
       {icon && (
         <img
+          onClick={onIconClick}
           className={styles.icon}
           src={icon}
           alt="icon"

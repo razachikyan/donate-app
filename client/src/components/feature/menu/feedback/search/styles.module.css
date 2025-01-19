@@ -1,7 +1,12 @@
 .container {
   padding: 15px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.wrapper {
+  flex: 1;
 }
 
 .input {
@@ -20,5 +25,24 @@
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.2) !important;
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  width: 100%;
+  padding: 30px 20px;
+  background-color: rgba(224, 135, 96, 0.3);
+  color: #e08760;
+  font-weight: bold;
+  font-size: 30px;
+
+  &:hover {
+    text-decoration: underline;
   }
 }

@@ -10,7 +10,7 @@ interface IFormProps {
   loading?: boolean;
   error?: string | null;
   formData?: any;
-  onSuccess?: () => void;
+  onSuccess?: VoidFunction;
   formFields: Record<
     string,
     {

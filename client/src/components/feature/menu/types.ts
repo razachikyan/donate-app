@@ -1,4 +1,4 @@
 export interface IMenuProps {
-    onClick: () => void,
-    open: boolean
+  onClick: VoidFunction;
+  open: boolean;
 }
