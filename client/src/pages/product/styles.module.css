@@ -11,7 +11,7 @@
 
 .product {
   width: 100%;
-  min-height: 100%;
+  min-height: 400px;
   padding: 60px;
   display: flex;
   border: 1px solid #aaa;
