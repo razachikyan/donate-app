@@ -1,0 +1,52 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+
+.item {
+    display: flex;
+    padding: 10px 40px !important;
+    justify-content: space-between !important;
+    width: 100%;
+    font-size: 27px;
+    background-color:rgba(255, 255, 255, 0.3);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    a {
+        color: #e08760;
+        font-weight: 600;
+    }
+}
+
+.completed {
+    background-color: rgba(0, 255, 255, 0.3)
+}
+
+.cancelled {
+    background-color: rgba(255, 0, 255, 0.3)
+}
+
+.title {
+    font-family: Arial;
+    font-style: italic;
+    font-size: 44px;
+    letter-spacing: 0.07em;
+    color: #fff;
+}
+
+.close {
+    cursor: pointer;
+}

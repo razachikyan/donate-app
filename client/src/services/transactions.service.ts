@@ -88,7 +88,7 @@ class TransactionsService {
       const response = await axiosClient.put<
         Partial<TransactionDTO>,
         ITransactionResponse
-      >(`/transactions/${transactionId}`, { status });
+      >(`/transactions/status/${transactionId}`, { status });
       return response.data;
     } catch (err: any) {
       console.error("Error while getting item::", err.message);
