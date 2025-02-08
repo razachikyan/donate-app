@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { Box, Container, Typography } from "@mui/material";
 import { useGetItems } from "../../hooks/items/useGetItems";
 import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
@@ -13,6 +13,7 @@ import styles from "./styles.module.css";
 export const ProductPage = () => {
   const { id } = useParams();
   const { user } = useCheckAuth();
+  const navigate = useNavigate();
   const [canRemove, setCanRemove] = useState(false);
   const {
     data: [product],
@@ -21,14 +22,14 @@ export const ProductPage = () => {
 
   useEffect(() => {
     if (user && product) {
-      const userId = "user_id" in user ? user.user_id : user.company_id;
-      setCanRemove(product.donor_id === userId);
+      setCanRemove(product.donor_id === user.user_id);
     }
   }, [product, user]);
 
   const handleRemoveItem = () => {
     if (product?.item_id) {
       itemsService.removeItem(product.item_id);
+      navigate("/me?tab=charity");
     }
   };
 
@@ -37,8 +38,7 @@ export const ProductPage = () => {
       transactionsService.createTransaction({
         donor_id: product.donor_id,
         item_id: product.item_id,
-        recipient_id:
-          user && "user_id" in user ? user.user_id : user?.company_id,
+        recipient_id: user.user_id,
         status: "in_progress",
       });
     }

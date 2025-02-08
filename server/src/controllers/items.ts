@@ -76,9 +76,7 @@ class ItemsController {
         return;
       }
       await itemsServices.updateItemStatus(id, req.body.status);
-      res
-        .status(200)
-        .json({ message: "Item status updated successfully" });
+      res.status(200).json({ message: "Item status updated successfully" });
     } catch (err: any) {
       console.error(err);
       res
@@ -107,8 +105,7 @@ class ItemsController {
   async createItem(req: Request, res: Response) {
     try {
       const item = req.body;
-      const { type = "user" } = req.query;
-      const created = await itemsServices.createItem(item, String(type));
+      const created = await itemsServices.createItem(item);
       res.status(201).json(created);
     } catch (err: any) {
       console.error(err);

@@ -9,7 +9,6 @@ class ItemsService {
 
   async getItems() {
     const items = await DB<IItemResponse>("items").select("*");
-    const items2 = await DB<IItemResponse>("company_items").select("*");
     return items;
   }
 
@@ -62,34 +61,20 @@ class ItemsService {
     return item;
   }
 
-  async createItem(item: IItemDTO, type: string): Promise<IItemResponse> {
-    console.log(item, type);
-
+  async createItem(item: IItemDTO): Promise<IItemResponse> {
     if (!item.title || !item.description || !item.category || !item.condition) {
       throw new Error("Required fields are missing");
     }
     let createdItem;
-    if (type === "user") {
-      [createdItem] = await DB<IItemResponse>("items")
-        .insert({
-          ...item,
-          recipient_id: null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          item_id: uuidv4(),
-        })
-        .returning("*");
-    } else if (type === "company") {
-      [createdItem] = await DB<IItemResponse>("company_items")
-        .insert({
-          ...item,
-          recipient_id: null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          item_id: uuidv4(),
-        })
-        .returning("*");
-    }
+    [createdItem] = await DB<IItemResponse>("items")
+      .insert({
+        ...item,
+        recipient_id: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        item_id: uuidv4(),
+      })
+      .returning("*");
     if (!createdItem) throw new Error("Failed to create item");
 
     return createdItem;

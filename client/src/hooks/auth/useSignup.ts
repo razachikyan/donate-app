@@ -15,6 +15,7 @@ export const useSignup = () => {
       phone: "",
       email: "",
       password: "",
+      type: "user",
       confirmPassword: "",
     },
     validationSchema: signupSchema,
@@ -28,7 +29,8 @@ export const useSignup = () => {
           values.lastName,
           values.email,
           values.phone,
-          values.password
+          values.type,
+          values.password,
         );
 
         setData(response);

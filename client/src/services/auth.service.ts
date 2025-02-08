@@ -27,6 +27,7 @@ class AuthService {
     lastName: string,
     email: string,
     phone: string,
+    type: string,
     password: string
   ): Promise<AuthResponse> {
     try {
@@ -37,6 +38,7 @@ class AuthService {
           lastName,
           email,
           phone,
+          type,
           password,
         }
       );

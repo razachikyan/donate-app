@@ -89,7 +89,7 @@ class TransactionsService {
       const response = await axiosClient.put<
         Partial<TransactionDTO>,
         ITransactionResponse
-      >(`/transactions/status/${transactionId}`, { status });
+        >(`/transactions/status/${transactionId}`, { status });
       if (status === "completed") {
         await itemsService.updateItemStatus(response.data.item_id, 'donated');
       }

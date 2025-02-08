@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 import { Container } from "../../components/feature/container";
 import { SideBar } from "../../components/feature/sideBar";
@@ -11,10 +11,9 @@ import { NewPost } from "../../components/feature/newPost";
 import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
 import { CharityPosts } from "../../components/feature/charityPosts";
 import authService from "../../services/auth.service";
-import companyService from "../../services/company.service";
+import { Notifications } from "../../components/feature/notifications";
 
 import styles from "./styles.module.css";
-import { Notifications } from "../../components/feature/notifications";
 
 const tabData: TabItem[] = [
   {
@@ -41,31 +40,19 @@ const tabData: TabItem[] = [
 
 export const AccountPage: React.FC = () => {
   const { user } = useCheckAuth();
-  const [username, setUsername] = useState<string>("");
-  const [type, setType] = useState<"user" | "company">("user");
-
-  useEffect(() => {
-    if (user) {
-      if ("name" in user) {
-        setType("company");
-        setUsername(user.name);
-      } else {
-        setUsername(`${user?.firstName} ${user?.lastName}`);
-        setType("user");
-      }
-    }
-  }, [user]);
 
   return (
     <Box className={styles.box}>
       <SideBar
         items={[
-          <UserBlock type={type} username={username || "no name"} />,
+          <UserBlock
+            type={user?.type ?? "user"}
+            username={user?.firstName ?? "Unknown"}
+          />,
           <button
             onClick={() => {
               localStorage.removeItem("accessToken");
               authService.logout();
-              companyService.logout();
               window.location.reload();
             }}
             className={styles.logout}

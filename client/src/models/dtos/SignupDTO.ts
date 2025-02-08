@@ -6,6 +6,7 @@ export class SignupDTO extends BaseDTO {
     public lastName: string,
     public password: string,
     public email: string,
+    public type: string,
     public phone: string
   ) {
     super();

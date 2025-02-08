@@ -48,7 +48,7 @@ class ItemsService {
 
   public async removeItem(id: string): Promise<void> {
     try {
-      const response = await axiosClient.delete(`/items/${id}`);
+      await axiosClient.delete(`/items/${id}`);
     } catch (err: any) {
       console.error("Error while getting item::", err.message);
     }
@@ -62,13 +62,10 @@ class ItemsService {
     }
   }
 
-  public async createItem(
-    DTO: ItemDTO,
-    type: "user" | "company"
-  ): Promise<IItemResponse | null> {
+  public async createItem(DTO: ItemDTO): Promise<IItemResponse | null> {
     try {
       const response = await axiosClient.post<ItemDTO, IItemResponse>(
-        `/items?type=${type}`,
+        "/items",
         DTO
       );
       return response.data;

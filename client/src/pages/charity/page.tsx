@@ -30,7 +30,7 @@ export const Charity = () => {
 
   const getCategoryName = (id: string) => {
     const category = categories.find((item) => {
-      return item.category_id == id;
+      return item.category_id === id;
     });
     return category ? category.name : null;
   };
