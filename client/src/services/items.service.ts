@@ -54,6 +54,14 @@ class ItemsService {
     }
   }
 
+  public async updateItemStatus(id: string, status: string): Promise<void> {
+    try {
+      await axiosClient.put(`/items/status/${id}`, { status });
+    } catch (err: any) {
+      console.error("Error while getting item::", err.message);
+    }
+  }
+
   public async createItem(
     DTO: ItemDTO,
     type: "user" | "company"

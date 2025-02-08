@@ -1,6 +1,7 @@
 import axiosClient from "../axiosClient";
 import { ITransactionResponse } from "../models/responses/TransactionResponse";
 import { TransactionDTO } from "../models/dtos/TransactionDTO";
+import itemsService from "./items.service";
 
 class TransactionsService {
   public async getTransactions(): Promise<ITransactionResponse[]> {
@@ -89,6 +90,9 @@ class TransactionsService {
         Partial<TransactionDTO>,
         ITransactionResponse
       >(`/transactions/status/${transactionId}`, { status });
+      if (status === "completed") {
+        await itemsService.updateItemStatus(response.data.item_id, 'donated');
+      }
       return response.data;
     } catch (err: any) {
       console.error("Error while getting item::", err.message);

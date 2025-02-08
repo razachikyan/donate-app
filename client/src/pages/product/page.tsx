@@ -22,7 +22,7 @@ export const ProductPage = () => {
   useEffect(() => {
     if (user && product) {
       const userId = "user_id" in user ? user.user_id : user.company_id;
-      setCanRemove(product.donor_id !== userId);
+      setCanRemove(product.donor_id === userId);
     }
   }, [product, user]);
 
@@ -37,11 +37,16 @@ export const ProductPage = () => {
       transactionsService.createTransaction({
         donor_id: product.donor_id,
         item_id: product.item_id,
-        recipient_id: user && 'user_id' in user ? user.user_id : user?.company_id,
+        recipient_id:
+          user && "user_id" in user ? user.user_id : user?.company_id,
         status: "in_progress",
       });
     }
   };
+
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
 
   return (
     <Box className={styles.box}>
@@ -86,11 +91,11 @@ export const ProductPage = () => {
               </Typography>
               {canRemove ? (
                 <Button onClick={handleRemoveItem}>Ջնջել</Button>
-              ) : (
+              ) : product?.status === "available" ? (
                 <Button onClick={handleCreateTransaction}>
                   Կատարել հարցում
                 </Button>
-              )}
+              ) : null}
             </Box>
           </Box>
         )}

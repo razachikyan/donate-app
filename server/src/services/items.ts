@@ -9,7 +9,19 @@ class ItemsService {
 
   async getItems() {
     const items = await DB<IItemResponse>("items").select("*");
+    const items2 = await DB<IItemResponse>("company_items").select("*");
     return items;
+  }
+
+  async updateItemStatus(
+    itemId: string,
+    status: "available" | "reserved" | "donated"
+  ) {
+    const item = await DB<IItemResponse>("items")
+      .select("*")
+      .where({ item_id: itemId })
+      .update({ status });
+    return item;
   }
 
   async getItemsByUser(userId: string) {
@@ -44,7 +56,7 @@ class ItemsService {
       .select("*")
       .where({ item_id: itemId })
       .del();
-    
+
     if (item !== 1) throw new Error("Failed to remove item");
 
     return item;
@@ -52,7 +64,7 @@ class ItemsService {
 
   async createItem(item: IItemDTO, type: string): Promise<IItemResponse> {
     console.log(item, type);
-    
+
     if (!item.title || !item.description || !item.category || !item.condition) {
       throw new Error("Required fields are missing");
     }
