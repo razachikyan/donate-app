@@ -30,6 +30,12 @@ export const AuthForm: React.FC<IFormProps> = ({ form, userType }) => {
     signup.setFieldValue("type", userType);
   }, [userType]);
 
+  useEffect(() => {
+    if (!isSignin && userType === "company") {
+      signup.setFieldValue("lastName", signup.values.firstName);
+    }
+  }, [signup.values.firstName, userType, isSignin]);
+
   const onUserAuthSuccess = () => {
     if (isSignin) {
       navigate(`/`, { replace: true });
@@ -41,6 +47,7 @@ export const AuthForm: React.FC<IFormProps> = ({ form, userType }) => {
   return (
     <UserAuthForm
       type={form}
+      userType={userType}
       error={isSignin ? signinError : signupError}
       formData={isSignin ? signinData : signupData}
       loading={isSignin ? signinPending : signupPending}
