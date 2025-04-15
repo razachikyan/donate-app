@@ -15,19 +15,18 @@ export const Notifications = () => {
   useEffect(() => {
     const load = async () => {
       if (user) {
-        const id = "company_id" in user ? user.company_id : user.user_id;
         const transactions1 = await transactionsService.getTransactionsByDonor(
-          id
+          user.user_id
         );
         const transactions2 =
-          await transactionsService.getTransactionsByRecipient(id);
+          await transactionsService.getTransactionsByRecipient(user.user_id);
         setResponses(transactions2);
         setRequests(transactions1);
       }
     };
-
     load();
   }, [user]);
+
   return (
     <div className={styles.notifications}>
       <span className={styles.title}>Դիումներ</span>

@@ -17,7 +17,6 @@ export const usePostItem = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useCheckAuth();
 
   const handleFormChange = (field: keyof ItemDTO, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -28,8 +27,7 @@ export const usePostItem = () => {
     setError(null);
     try {
       const response: IItemResponse | null = await ItemsService.createItem(
-        formData,
-        user && "company_id" in user ? "company" : "user"
+        formData
       );
       if (response) {
         setFormData({

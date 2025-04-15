@@ -2,7 +2,7 @@ import DB from "../db";
 import { v4 as uuidv4 } from "uuid";
 import { ITransactionDTO, ITransactionResponse } from "../models/transaction";
 
-class CategoriesService {
+class TransactionService {
   public async createTransaction(
     DTO: ITransactionDTO
   ): Promise<ITransactionResponse> {
@@ -82,4 +82,4 @@ class CategoriesService {
   }
 }
 
-export default new CategoriesService();
+export default new TransactionService();

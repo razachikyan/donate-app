@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IKImage } from "imagekitio-react";
-import { Box } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 import cx from "classnames";
 import { IProductProps } from "./types";
 
@@ -13,9 +13,11 @@ export const Product: React.FC<IProductProps> = ({ data, className }) => {
     <Box className={cx(className, styles.container)}>
       <IKImage src={data.image_url} alt={data.title} className={styles.image} />
       <Box className={styles.info}>
-        <a href={`/products/${data.item_id}`} className={styles.title}>{data.title}</a>
+        <a href={`/products/${data.item_id}`} className={styles.title}>
+          {data.title}
+        </a>
         <p className={styles.descr}>
-          {showing ? data.description : (data.description.slice(0, 30) + "...")}
+          {showing ? data.description : data.description.slice(0, 30) + "..."}
         </p>
         {hasMore && (
           <button
@@ -25,6 +27,11 @@ export const Product: React.FC<IProductProps> = ({ data, className }) => {
             {showing ? "Փակել" : "Կարդալ ավելին"}
           </button>
         )}
+        <Chip
+          className={styles.status}
+          label={data.status}
+          color={data.status === "available" ? "success" : "warning"}
+        />
       </Box>
     </Box>
   );

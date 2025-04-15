@@ -6,6 +6,12 @@
   max-height: 700px;
 }
 
+.status {
+  font-size: 25px !important;
+  text-transform: capitalize;
+  align-self: flex-end;
+}
+
 .image {
   width: 100%;
   aspect-ratio: 2/1.2;

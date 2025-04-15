@@ -8,6 +8,7 @@ interface IFormProps {
   type: "signin" | "signup";
   onSubmit: FormEventHandler<HTMLFormElement>;
   loading?: boolean;
+  userType: "user" | "company";
   error?: string | null;
   formData?: any;
   onSuccess?: VoidFunction;
@@ -20,6 +21,22 @@ interface IFormProps {
     }
   >;
 }
+
+const getFields = (type: "signin" | "signup", userType: "user" | "company") => {
+  if (type === "signin" || userType === "user") {
+    return fields[type];
+  }
+  fields[type] = fields[type]
+    .filter((field) => field.name !== "lastName")
+    .map((field) => {
+      if (field.name === "firstName") {
+        field.label = "Կազմակերպության Անուն";
+      }
+      return field;
+    });
+
+  return fields[type];
+};
 
 const fields: Record<
   "signin" | "signup",
@@ -75,6 +92,7 @@ export const UserAuthForm: React.FC<IFormProps> = ({
   type,
   onSubmit,
   loading = false,
+  userType,
   formFields,
   formData,
   error,
@@ -92,7 +110,7 @@ export const UserAuthForm: React.FC<IFormProps> = ({
       className={styles.form}
       onSubmit={onSubmit}
     >
-      {fields[type].map(({ label, name, type }, i) => (
+      {getFields(type, userType).map(({ label, name, type }, i) => (
         <Input
           key={i}
           value={formFields[name].value}

@@ -6,5 +6,6 @@ export interface AuthResponse {
   password: string;
   phone: string;
   is_active: boolean;
+  type: 'user' | "company";
   one_time_code: string | null;
 }

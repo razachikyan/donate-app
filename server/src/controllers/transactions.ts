@@ -109,9 +109,8 @@ class transactionsController {
         return;
       }
       await transactionsServices.updateTransactionStatus(id, req.body.status);
-      res
-        .status(200)
-        .json({ message: "transaction status updated successfully" });
+      const updated = await transactionsServices.getTransactionById(id);
+      res.status(200).json(updated);
     } catch (err: any) {
       console.error(err);
       res
