@@ -21,12 +21,7 @@ export const MyPosts: React.FC = () => {
         ) : (
           <>
             {data
-              .filter((item) => {
-                const limit = new Date();
-                limit.setDate(limit.getDate() - 5);
-
-                return new Date(item.created_at).getTime() > limit.getTime();
-              })
+              .filter((item) => item.variant === "announcement")
               .map((item, i) => (
                 <Product key={i} data={item} />
               ))}
