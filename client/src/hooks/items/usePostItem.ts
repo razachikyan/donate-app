@@ -10,6 +10,7 @@ export const usePostItem = () => {
     description: "",
     category: "",
     condition: "new",
+    variant: "charity",
     status: "available",
     donor_id: "",
     image_url: "",
@@ -33,6 +34,7 @@ export const usePostItem = () => {
         setFormData({
           title: "",
           description: "",
+          variant: "charity",
           category: "",
           condition: "new",
           status: "available",
