@@ -22,7 +22,7 @@ export const useSignin = () => {
         const response = await authService.signIn(email, password);
         setData(response);
       } catch (error: any) {
-        setError(error?.response?.data?.error ?? error.message);
+        setError(error?.response?.data?.message ?? error.message);
       } finally {
         setPending(false);
       }

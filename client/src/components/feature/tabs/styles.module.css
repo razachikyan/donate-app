@@ -8,4 +8,5 @@
 .tabPanel {
   padding-top: 200px;
   height: 100%;
+  overflow-y: auto;
 }

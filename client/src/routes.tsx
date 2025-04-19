@@ -5,8 +5,8 @@ import { AboutUs } from "./pages/about-us";
 import { Auth } from "./pages/auth/page";
 import { Verify } from "./pages/verify/page";
 import { Charity } from "./pages/charity/page";
-import { AccountPage } from "./pages/account/page";
 import { ProductPage } from "./pages/product/page";
+import { AccountPage } from "./pages/account/page"; //error
 
 export const router = createBrowserRouter(
   [

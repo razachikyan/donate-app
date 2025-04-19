@@ -16,7 +16,7 @@ export const useVerify = () => {
       return response;
     } catch (error: any) {
       setError(
-        error?.response?.data?.error ??
+        error?.response?.data?.message ??
           (error.message || "Something went wrong")
       );
     } finally {
