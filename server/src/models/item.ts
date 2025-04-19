@@ -20,6 +20,7 @@ export interface IItemResponse {
   donor_id: string;
   recipient_id: string | null;
   image_url: string;
+  variant: "charity" | "announcement";
   created_at: string;
   updated_at: string;
 }

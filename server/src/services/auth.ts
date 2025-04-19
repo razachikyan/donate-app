@@ -55,7 +55,8 @@ class AuthServices {
 
     mailer.sendMessage(
       email,
-      "Your password has been successfully updated. If you did not perform this action, contact support immediately."
+      "Your password has been successfully updated. If you did not perform this action, contact support immediately.",
+      "Password changed"
     );
   }
 
@@ -102,7 +103,7 @@ class AuthServices {
       token: refreshToken,
     });
 
-    mailer.sendMessage(email, "Your account has been successfully verified.");
+    mailer.sendMessage(email, "Your account has been successfully verified.", "Account verified");
     return { accessToken, refreshToken };
   }
 
@@ -137,7 +138,7 @@ class AuthServices {
       .where({ email })
       .update({ one_time_code: code });
 
-    mailer.sendMessage(user.email, `Your OTP is: ${code}`);
+    mailer.sendMessage(user.email, `Your OTP is: ${code}`, "OTP verification");
   }
 
   public async refreshTokens(
