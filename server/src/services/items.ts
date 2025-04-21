@@ -11,6 +11,12 @@ class ItemsService {
     const items = await DB<IItemResponse>("items").select("*");
     return items;
   }
+  async getItemsByVariant(variant: "charity" | "announcement") {
+    const items = await DB<IItemResponse>("items")
+      .select("*")
+      .where({ variant });
+    return items;
+  }
 
   async updateItemStatus(
     itemId: string,
@@ -20,6 +26,13 @@ class ItemsService {
       .select("*")
       .where({ item_id: itemId })
       .update({ status });
+    return item;
+  }
+  async updateItemVariant(itemId: string, variant: "charity" | "announcement") {
+    const item = await DB<IItemResponse>("items")
+      .select("*")
+      .where({ item_id: itemId })
+      .update({ variant });
     return item;
   }
 

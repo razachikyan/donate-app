@@ -35,8 +35,10 @@ export const useSignup = () => {
 
         setData(response);
       } catch (error: any) {
+        console.log(error);
+        
         setError(
-          error?.response?.data?.error ?? error.message ?? error.message
+          error?.response?.data?.message ?? error.message
         );
       } finally {
         setPending(false);

@@ -27,7 +27,7 @@ export const useCheckAuth = () => {
         setIsAuthorized(false);
         setUser(null);
         setError(
-          error?.response?.data?.error ??
+          error?.response?.data?.message ??
             "An error occurred while checking authorization."
         );
       } finally {

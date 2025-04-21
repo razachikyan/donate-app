@@ -20,9 +20,11 @@ export const CharityPosts: React.FC = () => {
           <Loading />
         ) : (
           <>
-            {data.map((item, i) => (
-              <Product key={i} data={item} />
-            ))}
+            {data
+              .filter((item) => item.variant === "charity")
+              .map((item, i) => (
+                <Product key={i} data={item} />
+              ))}
           </>
         )}
         {data.length === 0 && (

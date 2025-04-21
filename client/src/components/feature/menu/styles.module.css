@@ -18,9 +18,10 @@
   position: fixed;
   top: 0;
   left: 0;
+  overflow: hidden;
   bottom: 0;
   width: 940px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
   padding-top: 115px;
 }
 

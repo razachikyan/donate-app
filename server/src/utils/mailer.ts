@@ -17,12 +17,12 @@ class EmailService {
     });
   }
 
-  async sendMessage(email: string, message: string) {
+  async sendMessage(email: string, message: string, subject: string) {
     try {
       const mailOptions: nodemailer.SendMailOptions = {
         from: String(process.env.MAILER_USER),
         to: email,
-        subject: "Reset Your Password",
+        subject,
         text: message,
       };
 

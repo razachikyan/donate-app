@@ -36,6 +36,19 @@ class ItemsService {
       return [];
     }
   }
+  public async getItemsByVariant(
+    variant: string
+  ): Promise<Array<IItemResponse>> {
+    try {
+      const response = await axiosClient.get<IItemResponse[]>(
+        `/items/variant/${variant}`
+      );
+      return response.data;
+    } catch (err: any) {
+      console.error("Error while getting items::", err.message);
+      return [];
+    }
+  }
   public async getItemById(id: string): Promise<IItemResponse | null> {
     try {
       const response = await axiosClient.get<IItemResponse>(`/items/${id}`);

@@ -98,6 +98,15 @@ export const NewPost: React.FC = () => {
             { label: "Օգտագործված", value: "used" },
           ]}
         />
+        <Select
+          label="Հրապարակել որպես (Բարեգործություն / Հայտարարություն)"
+          value={formData.variant}
+          onChange={(ev) => handleFormChange("variant", ev.target.value)}
+          options={[
+            { label: "Բարեգործություն", value: "charity" },
+            { label: "Հայտարարություն", value: "announcement" },
+          ]}
+        />
         <FormControl className={styles.textarea}>
           <span className={styles.label}>Վերնագիր</span>
           <Input

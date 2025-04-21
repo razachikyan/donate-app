@@ -2,6 +2,7 @@ export interface IItemDTO {
   title: string;
   description: string;
   category: string;
+  variant: "charity" | "announcement";
   condition: "new" | "good" | "used";
   status: "available" | "reserved" | "donated";
   donor_id: string;
@@ -20,6 +21,7 @@ export interface IItemResponse {
   donor_id: string;
   recipient_id: string | null;
   image_url: string;
+  variant: "charity" | "announcement";
   created_at: string;
   updated_at: string;
 }

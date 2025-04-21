@@ -15,6 +15,20 @@ class ItemsController {
         .json({ message: `Error while getting items:: ${err.message}` });
     }
   }
+  async getItemsByVariant(req: Request, res: Response) {
+    try {
+      const { variant } = req.params;
+      const items = await itemsServices.getItemsByVariant(
+        variant as "charity" | "announcement"
+      );
+      res.status(200).json(items);
+    } catch (err: any) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ message: `Error while getting items:: ${err.message}` });
+    }
+  }
   async getItemsByUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -77,6 +91,22 @@ class ItemsController {
       }
       await itemsServices.updateItemStatus(id, req.body.status);
       res.status(200).json({ message: "Item status updated successfully" });
+    } catch (err: any) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ message: `Error while getting item:: ${err.message}` });
+    }
+  }
+  async updateItemVariant(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        res.status(400).json({ message: "Empty item ID" });
+        return;
+      }
+      await itemsServices.updateItemVariant(id, req.body.variant);
+      res.status(200).json({ message: "Item variant updated successfully" });
     } catch (err: any) {
       console.error(err);
       res

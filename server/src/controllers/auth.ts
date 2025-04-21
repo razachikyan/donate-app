@@ -12,7 +12,6 @@ class AuthController {
           "User created successfully, please check your email for OTP verification.",
       });
     } catch (error: any) {
-      console.log("Error creating user:", error);
       res
         .status(500)
         .json({ message: error.message || "Internal server error" });
