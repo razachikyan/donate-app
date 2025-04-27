@@ -27,6 +27,14 @@ export const usePostItem = () => {
     setLoading(true);
     setError(null);
     try {
+      const missingFields = Object.entries(formData).filter(
+        ([_, value]) => value.trim() === ""
+      );  
+      if (missingFields.length > 0) {
+        setLoading(false);
+        setError(`Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը։`);
+        return;
+      }  
       const response: IItemResponse | null = await ItemsService.createItem(
         formData
       );

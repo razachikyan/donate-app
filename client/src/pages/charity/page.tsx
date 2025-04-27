@@ -112,7 +112,7 @@ export const Charity = () => {
           </Box>
         </Box>
         <Box className={styles.list}>
-          {filteredData.map((item) => {
+          {filteredData.filter(item => item.variant === "charity").map((item) => {
             return <Product key={item.item_id} data={item} />;
           })}
         </Box>
