@@ -9,6 +9,24 @@
   height: 100vh;
 }
 
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  border: 1px solid #9900ff;
+  border-radius: 40px;
+  padding: 15px;
+  background-color: rgb(153, 0, 255, .3);
+  width: fit-content;
+}
+
 .product {
   width: 100%;
   min-height: 400px;
@@ -27,6 +45,10 @@
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
+}
+
+.image {
+  object-fit: contain;
 }
 
 .left img {

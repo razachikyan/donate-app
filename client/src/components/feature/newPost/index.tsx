@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Box, FormControl } from "@mui/material";
+import { Alert, Box, FormControl } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import { Buffer } from "buffer";
 import axios from "axios";
@@ -74,6 +74,11 @@ export const NewPost: React.FC = () => {
   return (
     <Box className={styles.container}>
       <Box className={styles.form}>
+        {formError && (
+          <Alert color="error" variant="filled">
+            {formError}
+          </Alert>
+        )}
         <Select
           label="Կատեգորիա"
           options={categories.map((item) => ({
@@ -123,7 +128,6 @@ export const NewPost: React.FC = () => {
         <Button onClick={handleFormSubmit} loading={formLoading}>
           {formLoading ? "Loading..." : "Ավելացնել"}
         </Button>
-        {formError && <div className={styles.error}>{formError}</div>}
       </Box>
       <Box className={styles.drop} {...getRootProps()}>
         <input className={styles.dropInput} {...getInputProps()} />

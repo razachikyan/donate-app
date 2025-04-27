@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams , useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, Container, Typography } from "@mui/material";
 import { useGetItems } from "../../hooks/items/useGetItems";
 import { useCheckAuth } from "../../hooks/auth/useCheckAuth";
 import itemsService from "../../services/items.service";
+import Phone from "../../../public/icons/phone.svg";
 import transactionsService from "../../services/transactions.service";
 import Loading from "../../components/feature/loading";
 import { Header } from "../../components/feature/profileHeader";
 import { Button } from "../../components/feature/button";
 import styles from "./styles.module.css";
+import { useGetUserById } from "../../hooks/users/useGetUsers";
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -17,9 +19,10 @@ export const ProductPage = () => {
   const [canRemove, setCanRemove] = useState(false);
   const {
     data: [product],
-    pending,
   } = useGetItems("item", id);
-
+  const {data, pending} = useGetUserById(product?.donor_id || "");
+  console.log(data);
+  
   useEffect(() => {
     if (user && product) {
       setCanRemove(product.donor_id === user.user_id);
@@ -61,6 +64,7 @@ export const ProductPage = () => {
                 src={product?.image_url}
                 alt={product?.title || "Product Image"}
                 width={800}
+                className={styles.image}
                 height={500}
               />
               <Typography variant="h2" className={styles.title}>
@@ -92,9 +96,25 @@ export const ProductPage = () => {
               {canRemove ? (
                 <Button onClick={handleRemoveItem}>Ջնջել</Button>
               ) : product?.status === "available" ? (
-                <Button onClick={handleCreateTransaction}>
-                  Կատարել հարցում
-                </Button>
+                <Box className={styles.buttons}>
+                  <Button onClick={handleCreateTransaction}>
+                    Կատարել հարցում
+                  </Button>
+                  {data && (
+                    <a
+                      className={styles.phone}
+                      href={`tel:${data.phone}`}
+                    >
+                      <img
+                        src="/icons/phone.svg"
+                        width={30}
+                        height={30}
+                        alt="phone"
+                      />
+                      Զանգահարել
+                    </a>
+                  )}
+                </Box>
               ) : null}
             </Box>
           </Box>
