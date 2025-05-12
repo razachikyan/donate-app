@@ -12,6 +12,15 @@ class CategoriesService {
     }
   }
 
+  public async deleteCategory(id: string): Promise<void> {
+    try {
+      await DB<ICategoryResponse>("categories").where({ category_id: id }).del();
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      throw new Error("Error deleting category");
+    }
+  }
+
   public async createCategory({
     description,
     name,
