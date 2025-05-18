@@ -126,7 +126,12 @@ export const UserAuthForm: React.FC<IFormProps> = ({
           {error}
         </Alert>
       )}
-      <Button loading={loading} type="submit" className={styles.submitButton}>
+      <Button
+        disabled={loading}
+        loading={loading}
+        type="submit"
+        className={styles.submitButton}
+      >
         {type === "signin" ? "Sign In" : "Sign Up"}
       </Button>
     </form>

@@ -21,7 +21,6 @@ export const ProductPage = () => {
     data: [product],
   } = useGetItems("item", id);
   const {data, pending} = useGetUserById(product?.donor_id || "");
-  console.log(data);
   
   useEffect(() => {
     if (user && product) {
@@ -46,10 +45,6 @@ export const ProductPage = () => {
       });
     }
   };
-
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
 
   return (
     <Box className={styles.box}>

@@ -108,7 +108,6 @@ class AuthServices {
   }
 
   public async signup(userData: IUserDTO): Promise<void> {
-    console.log(userData);
     this.validator.validate(userData);
     
     const existingUser = await DB<IUserResponse>("users")

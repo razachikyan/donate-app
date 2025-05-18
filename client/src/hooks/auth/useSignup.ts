@@ -36,7 +36,6 @@ export const useSignup = () => {
         setData(response);
       } catch (error: any) {
         console.log(error);
-        
         setError(
           error?.response?.data?.message ?? error.message
         );

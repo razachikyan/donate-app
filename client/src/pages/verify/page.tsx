@@ -36,7 +36,6 @@ export const Verify = () => {
 
     try {
       await verify(email, otp);
-      console.log("Verification successful:", data);
     } catch (err) {
       console.error("Verification failed:", err);
     }

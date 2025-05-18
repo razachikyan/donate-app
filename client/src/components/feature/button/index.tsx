@@ -10,10 +10,12 @@ export const Button: React.FC<IButtonProps> = ({
   children,
   className,
   loading = false,
+  disabled = false,
   type = "button",
 }) => {
   return (
     <MUIButton
+    disabled={disabled}
       type={type}
       onClick={onClick}
       className={cx(styles.button, className)}

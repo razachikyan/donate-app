@@ -3,4 +3,5 @@ export interface IButtonProps extends React.PropsWithChildren {
   className?: string;
   type?: "submit" | "button";
   loading?: boolean;
+  disabled?: boolean;
 }
