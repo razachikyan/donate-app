@@ -1,5 +1,5 @@
 export interface CategoriesResponse {
-  category_id: string;
+  category_id: number;
   name: string;
   description: string;
 }

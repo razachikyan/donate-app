@@ -29,8 +29,8 @@ export const Charity = () => {
   const [filteredData, setFilteredData] = useState(data);
 
   const getCategoryName = (id: string) => {
-    const category = categories.find((item) => {
-      return item.category_id === id;
+    const category = categories.find((item) => {      
+      return item.category_id === Number(id);
     });
     return category ? category.name : null;
   };
@@ -97,7 +97,7 @@ export const Charity = () => {
           <Box className={styles.activeFilters}>
             {selectedCategory && (
               <Chip
-                label={`Կատեգորիա: ${selectedCategory}`}
+                label={`Կատեգորիա: ${getCategoryName(selectedCategory)}`}
                 onDelete={() => removeFilter("category")}
                 className={styles.filterChip}
               />
@@ -112,9 +112,11 @@ export const Charity = () => {
           </Box>
         </Box>
         <Box className={styles.list}>
-          {filteredData.filter(item => item.variant === "charity").map((item) => {
-            return <Product key={item.item_id} data={item} />;
-          })}
+          {filteredData
+            .filter((item) => item.variant === "charity")
+            .map((item) => {
+              return <Product key={item.item_id} data={item} />;
+            })}
         </Box>
       </Container>
     </Box>
